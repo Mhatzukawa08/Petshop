@@ -288,9 +288,13 @@ if (isset($_SESSION['id_toko'])) {
 								while ($row = mysqli_fetch_assoc($query)) {
 									$id_penitipan = $row['id_penitipan'];
 									$id_toko = $row['id_toko'];
-									$jenis_hewan = $row['jenis_hewan'];
+									$id_jenis_hewan = $row['jenis_hewan'];
 									$harga = $row['harga'];
 									$harga_makanan = $row['harga_makanan'];
+
+									$queryJenisHewan = mysqli_query($koneksi, "SELECT * FROM jenis_hewan WHERE id_Jenis_hewan='$id_jenis_hewan' ");
+									$data = mysqli_fetch_array($queryJenisHewan);
+									$jenis_hewan = $data['jenis_hewan'];
 								?>
 									<option value="<?= $jenis_hewan.";;".$harga.";;".$harga_makanan?>"><?= $jenis_hewan ?></option>
 

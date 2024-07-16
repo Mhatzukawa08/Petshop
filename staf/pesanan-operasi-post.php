@@ -172,22 +172,21 @@ if (isset($_POST['hapus_dokumentasi'])) {
 
 if (isset($_POST['konfirmasi_pesanan'])) {
     $id_pesanan_operasi = $_POST['id_pesanan_operasi'];
-    $id_pemesanan = $_POST['id_pemesanan'];
 
-    $query = mysqli_query($koneksi, "UPDATE pesanan_operasi SET ket='1' WHERE id_pemesanan='$id_pemesanan' ");
+    $query = mysqli_query($koneksi, "UPDATE pesanan_operasi SET ket='1', bayar='1' WHERE id_pesanan_operasi='$id_pesanan_operasi' ");
 
     if ($query) {
         echo '
                 <script>
                     alert("Berhasil Konfirmasi Pesanan");
-                    window.location.href="pesanan-operasi.php?id_pesanan_operasi=' . $id_pesanan_operasi . '";
+                    window.location.href="riwayat-pesanan-operasi.php?id_pesanan_operasi=' . $id_pesanan_operasi . '";
                 </script>
             ';
     } else {
         echo '
                 <script>
                     alert("Gagal Konfirmasi Pesanan");
-                    window.location.href="pesanan-operasi.php?id_pesanan_operasi=' . $id_pesanan_operasi . '";
+                    window.location.href="riwayat-pesanan-operasi.php?id_pesanan_operasi=' . $id_pesanan_operasi . '";
                 </script>
             ';
     }
