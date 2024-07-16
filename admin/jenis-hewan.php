@@ -45,7 +45,7 @@ if (isset($_COOKIE['id'])) {
 	<link rel="shortcut icon" href="img/favicon.ico" />
 
 	<!-- Title -->
-	<title>Admin</title>
+	<title>Dokter</title>
 
 
 	<!-- *************

@@ -51,7 +51,7 @@ function rupiah($angka)
 	<link rel="shortcut icon" href="img/favicon.ico" />
 
 	<!-- Title -->
-	<title>Karyawan</title>
+	<title>Dokter</title>
 
 
 	<!-- *************
