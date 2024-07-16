@@ -303,7 +303,7 @@ if (isset($_SESSION['id_toko'])) {
 
 						</div>
 						<div class="form-group">
-							<label for="tanggal_penitipan">Tgl Penitipan</label>
+							<label for="tanggal_penitipan">- Tgl Penitipan -</label>
 							<input type="date" name="tanggal_penitipan" class="form-control" id="tanggal_penitipan" placeholder="Jumlah Hewan" required>
 						</div>
 						<div class="form-group">
