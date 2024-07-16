@@ -24,7 +24,7 @@
 					setcookie("nama", $data['nama'], time() + (86400 * 7), "/"); // // 24 jam * 7 hari = 1 Minggu
 					echo '<script language="javascript">
 					alert("Anda berhasil masuk sebagai Dokter");
-					window.location="../admin/";
+					window.location="../admin/jenis-hewan.php";
 					</script>';
 				}
 				elseif ($data['sebagai'] == "karyawan"){

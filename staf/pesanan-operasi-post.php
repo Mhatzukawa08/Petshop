@@ -172,8 +172,9 @@ if (isset($_POST['hapus_dokumentasi'])) {
 
 if (isset($_POST['konfirmasi_pesanan'])) {
     $id_pesanan_operasi = $_POST['id_pesanan_operasi'];
+    $id_pemesanan = $_POST['id_pemesanan'];
 
-    $query = mysqli_query($koneksi, "UPDATE pesanan_operasi SET ket='1', bayar='1' WHERE id_pesanan_operasi='$id_pesanan_operasi' ");
+    $query = mysqli_query($koneksi, "UPDATE pesanan_penitipan SET ket='1', bayar='1' WHERE id_pesanan_penitipan='$id_pesanan_penitipan' ");
 
     if ($query) {
         echo '

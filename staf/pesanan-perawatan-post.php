@@ -174,20 +174,20 @@ if (isset($_POST['konfirmasi_pesanan'])) {
     $id_pesanan_perawatan = $_POST['id_pesanan_perawatan'];
     $id_pemesanan = $_POST['id_pemesanan'];
 
-    $query = mysqli_query($koneksi, "UPDATE pesanan_perawatan SET ket='1' WHERE id_pemesanan='$id_pemesanan' ");
+    $query = mysqli_query($koneksi, "UPDATE pesanan_perawatan SET ket='1', bayar='1' WHERE id_pesanan_perawatan='$id_pesanan_perawatan' ");
 
     if ($query) {
         echo '
                 <script>
                     alert("Berhasil Konfirmasi Pesanan");
-                    window.location.href="pesanan-perawatan.php?id_pesanan_perawatan=' . $id_pesanan_perawatan . '";
+                    window.location.href="riwayat-pesanan-perawatan.php?id_pesanan_perawatan=' . $id_pesanan_perawatan . '";
                 </script>
             ';
     } else {
         echo '
                 <script>
                     alert("Gagal Konfirmasi Pesanan");
-                    window.location.href="pesanan-perawatan.php?id_pesanan_perawatan=' . $id_pesanan_perawatan . '";
+                    window.location.href="riwayat-pesanan-perawatan.php?id_pesanan_perawatan=' . $id_pesanan_perawatan . '";
                 </script>
             ';
     }

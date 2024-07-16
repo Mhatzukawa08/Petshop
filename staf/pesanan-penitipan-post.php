@@ -91,19 +91,19 @@ if (isset($_POST['edit_dokumentasi'])) {
         mkdir("../gambar/dokumentasi/");
     }
 
+    $gambar = kataAcak().".png";
+
     $array_name_image = explode('.', $file_name_image);
     $ekstensi_image = end($array_name_image);
 
-    $gambar = kataAcak().".png";
-
-
     if ($error_image == 0) {
         if ($ekstensi_image == "png" || $ekstensi_image == "jpg" || $ekstensi_image == "jpeg") {
-            move_uploaded_file($temp_name_image, "../gambar/dokumentasi/$gambar");   //Temp name image itu file nya
 
             $query = mysqli_query($koneksi, "UPDATE `dokumentasi` SET keterangan='$keterangan', gambar='$gambar' WHERE id_dokumentasi='$id_dokumentasi' ");
 
             if ($query) {
+                move_uploaded_file($temp_name_image, "../gambar/dokumentasi/$gambar");   //Temp name image itu file nya
+
                 echo '
                         <script>
                             alert("Berhasil Edit Dokumentasi");
