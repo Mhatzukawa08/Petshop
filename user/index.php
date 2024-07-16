@@ -459,72 +459,7 @@
       </div>
       <!-- /container -->
    </section>
-   <section id="dokumentasi" class="container-fluid pl-0 pr-0">
-      <div class="container">
-         <!-- section heading -->
-         <div class="section-heading text-center">
-            <p class="subtitle">Dokumentasi</p>
-            <h2>Galeri</h2>
-         </div>
-         <!-- /section-heading -->
-      </div>
-      <!-- owl carousel gallery  -->
-      <div class="owl-stage owl-carousel owl-theme top-centered-nav magnific-popup mt-5">
-         <?php 
-            $queryDokumentasi = mysqli_query($koneksi, "SELECT * FROM dokumentasi ");
-            while ($row = mysqli_fetch_assoc($queryDokumentasi)) {
-               $id_dokumentasi = $row['id_dokumentasi'];
-               $keterangan = $row['keterangan'];
-               $gambar = $row['gambar'];
-               $waktu = $row['waktu'];
-         ?>
-            <div class="col-md-12 gallery-img hover-opacity">
-               <!-- image -->
-               <a href="../gambar/dokumentasi/<?=$gambar?>" title="<?=$keterangan?>">
-                  <img src="../gambar/dokumentasi/<?=$gambar?>" class="img-fluid rounded" alt="">
-               </a>
-            </div>
-         <?php
-            
-            }
-         ?>
-
-         <!-- <div class="col-md-12 gallery-img hover-opacity">
-            <a href="../gambar/dokumentasi/1-28-123QWErtY456.jpg" title="your caption here">
-               <img src="../gambar/dokumentasi/1-28-123QWErtY456.jpg" class="img-fluid rounded" alt="">
-            </a>
-         </div> -->
-
-      </div>
-   </section>
-   <footer class="bg-light pattern1">
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-3 text-center ">
-               <img src="img/logo.png" class="logo-footer img-fluid" alt="" />
-               <!-- <ul class="social-list text-center list-inline">
-                  <li class="list-inline-item"><a title="Facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
-                  <li class="list-inline-item"><a title="Twitter" href="#"><i class="fab fa-twitter"></i></a></li>
-                  <li class="list-inline-item"><a title="Instagram" href="#"><i class="fab fa-instagram"></i></a></li>
-               </ul> -->
-               <!-- /End Social Links -->
-            </div>
-         </div>
-         <!--/ row-->
-         <!-- <div class="row mb-5">
-            <div class="credits col-sm-12">
-               <p>Copyright 2023 / Designed by <a href="https://www.instagram.com/simpelaja.studio/">Simpel Aja Studio</a></p>
-            </div>
-         </div> -->
-         <!--/col-lg-12-->
-      </div>
-      <!--/ container -->
-      <!-- Go To Top Link -->
-      <div class="page-scroll hidden-sm hidden-xs media1">
-         <a href="#top" class="back-to-top"><i class="fa fa-angle-up"></i></a>
-      </div>
-      <!--/page-scroll-->
-   </footer>
+   
    <!--/ footer-->
    <!-- Bootstrap core & Jquery -->
    <script src="../vendor/jquery/jquery.min.js"></script>
