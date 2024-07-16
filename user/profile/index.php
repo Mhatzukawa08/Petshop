@@ -267,21 +267,21 @@
   						<a href="keranjang-belanja.php">
   							<div class="col-lg-12">
   								<i class="flaticon-pet-carrier text-dark h4"></i>
-  								<label class="text-dark h6 ml-2"><b>Keranjang Belanja</b></label>
+  								<label class="text-dark h6 ml-2"><b>Keranjang Produk</b></label>
   							</div>
   						</a>
 						<a href="pesanan.php">
   							<div class="col-lg-12">
   								<i class="flaticon-pet-carrier text-dark h4"></i>
-  								<label class="text-dark h6 ml-2"><b>Pesanan</b></label>
+  								<label class="text-dark h6 ml-2"><b>Riwayat pesanan produk</b></label>
   							</div>
   						</a>
-						  <a href="riwayat-pesanan.php">
+						  <!-- <a href="riwayat-pesanan.php">
   							<div class="col-lg-12">
   								<i class="flaticon-pet-carrier text-dark h4"></i>
   								<label class="text-dark h6 ml-2"><b>Riwayat Pesanan</b></label>
   							</div>
-  						</a>
+  						</a> -->
 						<!-- <a href="dikemas.php">
   							<div class="col-lg-12">
   								<i class="flaticon-pet-carrier text-dark h4"></i>
