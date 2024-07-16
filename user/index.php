@@ -340,7 +340,7 @@
             <!-- <div class="col-md-12">
                <div class="serviceBox2"> -->
                   <!-- service icon -->
-                  <!-- <a href="layanan.php">
+                  <!-- <a href="../registrasi/index.php">
                      <div class="service-icon">
                         <i class="flaticon-dog-training-3"></i>
                      </div>
@@ -355,7 +355,7 @@
             <div class="col-md-12">
                <div class="serviceBox2">
                   <!-- service icon -->
-                  <a href="layanan.php">
+                  <a href="../registrasi/index.php">
                      <div class="service-icon">
                         <i class="flaticon-pet-shelter"></i>
                      </div>
@@ -370,7 +370,7 @@
             <div class="col-md-12">
                <div class="serviceBox2">
                   <!-- service icon -->
-                  <a href="layanan.php">
+                  <a href="../registrasi/index.php">
                      <div class="service-icon">
                         <i class="flaticon-animals-2"></i>
                      </div>
@@ -385,7 +385,7 @@
             <div class="col-md-12">
                <div class="serviceBox2">
                   <!-- service icon -->
-                  <a href="layanan.php">
+                  <a href="../registrasi/index.php">
                      <div class="service-icon">
                         <i class="flaticon-dog-with-first-aid-kit-bag"></i>
                      </div>
@@ -400,7 +400,7 @@
             <div class="col-md-12">
                <div class="serviceBox2">
                   <!-- service icon -->
-                  <a href="layanan.php">
+                  <a href="../registrasi/index.php">
                      <div class="service-icon">
                         <i class="flaticon-syringe"></i>
                      </div>
@@ -415,7 +415,7 @@
             <div class="col-md-12">
                <div class="serviceBox2">
                   <!-- service icon -->
-                  <a href="layanan.php">
+                  <a href="../registrasi/index.php">
                      <div class="service-icon">
                         <i class="flaticon-animal-13"></i>
                      </div>
@@ -429,7 +429,7 @@
             <div class="col-md-12">
                <div class="serviceBox2">
                   <!-- service icon -->
-                  <a href="layanan.php">
+                  <a href="../registrasi/index.php">
                      <div class="service-icon">
                         <i class="flaticon-pet-food"></i>
                      </div>
@@ -443,7 +443,7 @@
             <div class="col-md-12">
                <div class="serviceBox2">
                   <!-- service icon -->
-                  <a href="layanan.php">
+                  <a href="../registrasi/index.php">
                      <div class="service-icon">
                         <i class="flaticon-game"></i>
                      </div>
