@@ -411,7 +411,7 @@ function rupiah($angka)
 															<div class="modal fade" id="modalKonfirmasiPesanan" tabindex="-1" aria-labelledby="modalKonfirmasiPesananLabel" aria-hidden="true">
 																<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 																	<div class="modal-content">
-																		<form action="pesanan-produk-post.php" method="post" enctype="multipart/form-data">
+																		<form action="pesanan-penitipan-post.php" method="post" enctype="multipart/form-data">
 																			<div class="modal-header">
 																				<h5 class="modal-title" id="modalKonfirmasiPesananLabel">Konfirmasi Pesanan</h5>
 																				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -419,8 +419,7 @@ function rupiah($angka)
 																				</button>
 																			</div>
 																			<div class="modal-body">
-																				<input type="text" class="form-control" id="id_pemesanan" name="id_pemesanan" value="<?= $id_pemesanan ?>" hidden>
-																				<input type="text" class="form-control" id="id_pesanan_produk" name="id_pesanan_produk" value="<?= $id_pesanan_produk ?>" hidden>
+																				<input type="text" class="form-control" id="id_pesanan_penitipan" name="id_pesanan_penitipan" value="<?= $id_pesanan_penitipan ?>" hidden>
 																				<div class="mb-3">
 																					<label for="keterangan" class="form-label">Klik Konfirmasi jika pesanan telah selesai</label>
 																				</div>
@@ -622,7 +621,7 @@ function rupiah($angka)
 							?>
 								<div class="row row-cols-auto">
 									<?php
-									$query = mysqli_query($koneksi, "SELECT * FROM `pesanan_penitipan` WHERE id_toko='$id_toko' ");
+									$query = mysqli_query($koneksi, "SELECT * FROM `pesanan_penitipan` WHERE id_toko='$id_toko' AND ket='0' ");
 
 									while ($hasil = mysqli_fetch_assoc($query)) {
 										$id_pesanan_penitipan = $hasil['id_pesanan_penitipan'];
