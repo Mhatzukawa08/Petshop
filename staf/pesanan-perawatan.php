@@ -644,7 +644,7 @@ function rupiah($angka)
 							?>
 								<div class="row row-cols-auto">
 									<?php
-									$query = mysqli_query($koneksi, "SELECT * FROM `pesanan_perawatan` WHERE id_toko='$id_toko' AND ket='0' AND id_pemesanan>0 
+									$query = mysqli_query($koneksi, "SELECT * FROM `pesanan_perawatan` WHERE id_toko='$id_toko' AND ket='0'
 											GROUP BY id_pemesanan HAVING count(*) > 0 ORDER BY id_pemesanan ASC");
 
 									// $query = mysqli_query($koneksi, "SELECT * FROM `pesanan_perawatan` WHERE id_toko='$id_toko' ");

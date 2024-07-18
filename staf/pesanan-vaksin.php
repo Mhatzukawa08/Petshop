@@ -636,7 +636,7 @@ function rupiah($angka)
 							?>
 								<div class="row row-cols-auto">
 									<?php
-									$query = mysqli_query($koneksi, "SELECT * FROM `pesanan_vaksin` WHERE id_toko='$id_toko' ");
+									$query = mysqli_query($koneksi, "SELECT * FROM `pesanan_vaksin` WHERE id_toko='$id_toko' AND ket='0' ");
 
 									while ($hasil = mysqli_fetch_assoc($query)) {
 										$id_pesanan_vaksin = $hasil['id_pesanan_vaksin'];
