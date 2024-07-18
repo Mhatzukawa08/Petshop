@@ -255,6 +255,12 @@
   								<label class="text-dark h6 ml-2"><b>Layanan</b></label>
   							</div>
   						</a>
+						  <a href="riwayat-layanan.php">
+  							<div class="col-lg-12">
+  								<i class="flaticon-vet-with-cat text-dark h4"></i>
+  								<label class="text-dark h6 ml-2"><b>Riwayat Layanan</b></label>
+  							</div>
+  						</a>
   						<!-- <a href="layanan.php">
   							<div class="col-lg-12">
   								<i class="flaticon-vet-with-cat text-dark h4"></i>

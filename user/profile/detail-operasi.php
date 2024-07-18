@@ -299,7 +299,7 @@ if(isset($_SESSION['id_toko'])){
 												<a href="../toko/detail-toko.php?toko=<?=$id_toko?>" class="text-dark"><b><?= $nama_toko ?></b></a>
 											</td>
 											<td align="right">
-												<label class="text-danger mr-2"><b>Proses</b></label>
+												<label class="text-danger mr-2"><b></b></label>
 											</td>
 										</tr>
 									</table>

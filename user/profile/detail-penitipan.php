@@ -9,7 +9,7 @@ if (isset($_GET)) {
 	$id_pesanan = $_GET['id_pesanan'];
 }
 
-$queryPenitipan = mysqli_query($koneksi, "SELECT * FROM pesanan_penitipan WHERE id_user='$id_user' AND ket='0' ");
+$queryPenitipan = mysqli_query($koneksi, "SELECT * FROM pesanan_penitipan WHERE id_user='$id_user' ");
 $dataPenitipan = mysqli_fetch_array($queryPenitipan);
 
 $id_pesanan_penitipan = $dataPenitipan['id_pesanan_penitipan'];

@@ -9,7 +9,7 @@ if (isset($_GET)) {
 	$id_pesanan = $_GET['id_pesanan'];
 }
 
-$queryPenitipan = mysqli_query($koneksi, "SELECT * FROM pesanan_vaksin WHERE id_pesanan_vaksin='$id_pesanan' AND ket='0' ");
+$queryPenitipan = mysqli_query($koneksi, "SELECT * FROM pesanan_vaksin WHERE id_pesanan_vaksin='$id_pesanan' ");
 $dataPenitipan = mysqli_fetch_array($queryPenitipan);
 
 $id_pesanan_vaksin = $dataPenitipan['id_pesanan_vaksin'];
@@ -307,7 +307,7 @@ $checkToko = false;
 												<a href="../toko/detail-toko.php?toko=<?=$id_toko?>" class="text-dark"><b><?= $nama_toko ?></b></a>
 											</td>
 											<td align="right">
-												<label class="text-danger mr-2"><b>Proses</b></label>
+												<label class="text-danger mr-2"><b></b></label>
 											</td>
 										</tr>
 									</table>

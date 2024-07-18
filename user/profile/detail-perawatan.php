@@ -11,7 +11,7 @@ if (isset($_GET)) {
 }
 
 $queryCekPesananPerawatan = mysqli_query($koneksi, "SELECT * FROM pesanan_perawatan 
-	WHERE id_user='$id_user' AND id_pesanan_perawatan='$id_pesanan' AND ket='0' ");
+	WHERE id_user='$id_user' AND id_pesanan_perawatan='$id_pesanan' ");
 
 $dataPesananPerawatan = mysqli_fetch_array($queryCekPesananPerawatan);
 
@@ -30,7 +30,7 @@ $total_harga = 0;
 $jenis_perawatan = "";
 
 $queryPesananPerawatan = mysqli_query($koneksi, "SELECT * FROM pesanan_perawatan 
-	WHERE id_user='$id_user' AND id_pemesanan='$id_pemesanan' AND ket='0' ");
+	WHERE id_user='$id_user' AND id_pemesanan='$id_pemesanan' ");
 while($row = mysqli_fetch_assoc($queryPesananPerawatan)){
 	// Perawatan
 	$id_perawatan = $row['id_perawatan'];
@@ -315,7 +315,7 @@ if(isset($_SESSION['id_toko'])){
 												<label class="text-dark"><b><?= $nama_toko ?></b></label>
 											</td>
 											<td align="right">
-												<label class="text-danger mr-2"><b>Proses</b></label>
+												<label class="text-danger mr-2"><b></b></label>
 											</td>
 										</tr>
 									</table>
