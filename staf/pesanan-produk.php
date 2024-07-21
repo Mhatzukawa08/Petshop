@@ -237,8 +237,8 @@ function rupiah($angka)
 													</button>
 												</div>
 												<div class="modal-body">
-													<input type="text" class="form-control" id="id_pemesanan" name="id_pemesanan" value="<?= $id_pemesanan ?>" hidden>
-													<input type="text" class="form-control" id="id_pesanan_produk" name="id_pesanan_produk" value="<?= $id_pesanan_produk ?>" hidden>
+													<input type="text" class="form-control" id="id_pemesanan" name="id_pemesanan" value="<?= $_GET['id_pemesanan'] ?>" hidden>
+													<!-- <input type="text" class="form-control" id="id_pesanan_produk" name="id_pesanan_produk" value="<?= $id_pesanan_produk ?>" hidden> -->
 													<div class="mb-3">
 														<label for="keterangan" class="form-label">Klik Konfirmasi jika pesanan telah selesai</label>
 													</div>

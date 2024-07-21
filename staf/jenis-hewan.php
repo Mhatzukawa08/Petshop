@@ -143,7 +143,7 @@ if (isset($_COOKIE['id'])) {
 								<a class="dropdown-item" href="layanan-operasi.php">Operasi</a>
 							</li>
 							<li>
-								<a class="dropdown-item active-page" href="layanan-vaksin.php">Vaksin</a>
+								<a class="dropdown-item" href="layanan-vaksin.php">Vaksin</a>
 							</li>
 						</ul>
 					</li>

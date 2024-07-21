@@ -87,7 +87,7 @@
                 $order_id = orderId();
 
                 $queryPesananTemp = mysqli_query($koneksi,"INSERT INTO `tranksaksi` (order_id, id_user, cek_id, ket_pesanan, keterangan) 
-                                                           VALUES ('$order_id', '$id_user', '$cek_id', '$ket_pesanan', '$keterangan' ) ");
+                                                           VALUES ('$kata_acak', '$id_user', '$cek_id', '$ket_pesanan', '$keterangan' ) ");
 
 
                 echo '
