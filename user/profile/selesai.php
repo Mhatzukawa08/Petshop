@@ -347,11 +347,7 @@
 
   <footer class="bg-light pattern1 m-bottom no-img">
   	<div class="container">
-  		<div class="row">
-  			<div class="credits col-sm-12">
-  				<p>Copyright 2022 / Designed by <a href="http://www.ingridkuhn.com">Simpel Aja Studio</a></p>
-  			</div>
-  		</div>
+  		
   		<!--/col-lg-12-->
   	</div>
   	<!--/ container -->

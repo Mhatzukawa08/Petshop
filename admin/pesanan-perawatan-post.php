@@ -174,7 +174,7 @@ if (isset($_POST['konfirmasi_pesanan'])) {
     $id_pesanan_perawatan = $_POST['id_pesanan_perawatan'];
     $id_pemesanan = $_POST['id_pemesanan'];
 
-    $query = mysqli_query($koneksi, "UPDATE pesanan_perawatan SET ket='1', bayar='1' WHERE id_pesanan_perawatan='$id_pesanan_perawatan' ");
+    $query = mysqli_query($koneksi, "UPDATE pesanan_perawatan SET ket='1', bayar='1' WHERE id_pemesanan='$id_pemesanan' ");
 
     if ($query) {
         echo '
