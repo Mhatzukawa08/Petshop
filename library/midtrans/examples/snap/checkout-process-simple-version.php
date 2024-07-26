@@ -106,6 +106,21 @@
             );
 
             array_push($item_details, $valueAddItem);
+            
+        } else if(isset($_GET['pesanan_vaksin'])){
+            $id_pesanan_vaksin = $_GET['id_pesanan_vaksin'];
+            $harga_vaksin = $_GET['harga_vaksin'];
+            $vaksin_ke = "Vaksin Ke-".$_GET['vaksin_ke'];
+            $order_id = $_GET['order_id'];
+
+            $valueAddItem = array(
+                'id' => "$id_pesanan_vaksin",
+                'price' => $harga_per_vaksin,
+                'quantity' => 1,
+                'name' => "$vaksin_ke"
+            );
+
+            array_push($item_details, $valueAddItem);
         }
     }
 

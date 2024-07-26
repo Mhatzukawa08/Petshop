@@ -60,53 +60,44 @@
         }
 
         $query = mysqli_query($koneksi, "INSERT INTO pesanan_operasi (id_pemesanan, kode_unik, id_toko, id_user, nama_hewan, id_operasi, 
-                                                metode_pembayaran, pesan, ket, waktu) 
-                                                VALUES ('$id_pemesanan', '$kata_acak', '$id_toko', '$id_user', '$nama_hewan', '$id_operasi', 
-                                                '$metode_pembayaran', '$pesan', '0', '$waktu' ) ");
-
+                                                    metode_pembayaran, pesan, ket, waktu) 
+                                                    VALUES ('$id_pemesanan', '$kata_acak', '$id_toko', '$id_user', '$nama_hewan', '$id_operasi', 
+                                                    '$metode_pembayaran', '$pesan', '0', '$waktu' ) ");
+        
         if($query){
             if($metode_pembayaran=="bayar_online"){
-                $queryAmbilIdPesananOperasi = mysqli_query($koneksi, "SELECT * FROM `pesanan_Operasi` WHERE kode_unik='$kata_acak' ");
+                $queryAmbilIdPesananOperasi = mysqli_query($koneksi, "SELECT * FROM `pesanan_operasi` WHERE kode_unik='$kata_acak' ");
                 $dataAmbilIdPesananOperasi = mysqli_fetch_array($queryAmbilIdPesananOperasi);
                 $cek_id = $dataAmbilIdPesananOperasi['id_pesanan_operasi'];
-
+    
                 $ket_pesanan = 4;   // 1.Produk; 2.penitipan; 3.Perawatan; 4.operasi; 5.vaksin
                 $keterangan = "proses"; // pending=masih proses; settlement=berhasil; expire=gagal
-                $order_id = orderId();
-
+    
                 $queryPesananTemp = mysqli_query($koneksi,"INSERT INTO `tranksaksi` (order_id, id_user, cek_id, ket_pesanan, keterangan) 
-                                                        VALUES ('$order_id', '$id_user', '$cek_id', '$ket_pesanan', '$keterangan' ) ");
-
-
+                                                        VALUES ('$kata_acak', '$id_user', '$cek_id', '$ket_pesanan', '$keterangan' ) ");
+    
                 echo '
                     <script>
-                        window.location.href="../../library/midtrans/examples/snap/checkout-process-simple-version.php?pesanan_operasi=&order_id='.$kata_acak.'&id_pesanan_operasi='.$cek_id.'&id_user='.$id_user.'&harga_per_operasi='.$harga_per_operasi.'&jenis_operasi='.$nama_operasi.'";
+                        window.location.href="../../library/midtrans/examples/snap/checkout-process-simple-version.php?pesanan_operasi&order_id='.$kata_acak.'&id_pesanan_operasi='.$cek_id.'&id_user='.$id_user.'&harga_per_operasi='.$harga_per_operasi.'&jenis_operasi='.$nama_operasi.'";
                     </script>
                 ';
             } else{
                 echo '
                     <script>
-                        alert("Berhasil Menambahkan Pesanan");
+                        alert("Gagal Menambahkan Pesanan");
                         window.location.href="../operasi/?toko='.$id_toko.'";
                     </script>
                 ';
             }
-            // echo '
-            //     <script>
-            //         alert("Berhasil Menambahkan Pesanan");
-            //         window.location.href="../operasi/?toko='.$id_toko.'";
-            //     </script>
-            // ';
-        }
-        else{ 
+        } else{
             echo '
                 <script>
-                    alert("Gagal Menambahkan Pesanan");
+                    alert("Berhasil Menambahkan Pesanan");
                     window.location.href="../operasi/?toko='.$id_toko.'";
                 </script>
             ';
-        }    
+        }
 
-    } else {
-    }
+
+    } 
 ?>

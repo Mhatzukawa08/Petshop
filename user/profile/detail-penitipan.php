@@ -7,57 +7,57 @@ $nama_user = $_COOKIE['nama'];
 $id_pesanan = "";
 if (isset($_GET)) {
 	$id_pesanan = $_GET['id_pesanan'];
+
+	$queryPenitipan = mysqli_query($koneksi, "SELECT * FROM pesanan_penitipan WHERE id_pesanan_penitipan='$id_pesanan' ");
+	$dataPenitipan = mysqli_fetch_array($queryPenitipan);
+
+	$id_pesanan_penitipan = $dataPenitipan['id_pesanan_penitipan'];
+	$kode_unik = $dataPenitipan['kode_unik'];
+	$id_toko = $dataPenitipan['id_toko'];
+	$id_user = $dataPenitipan['id_user'];
+	$nama_hewan = $dataPenitipan['nama_hewan'];
+	$jenis_hewan = $dataPenitipan['jenis_hewan'];
+	$tanggal_penitipan = $dataPenitipan['tanggal_penitipan'];
+	$jumlah_hari = $dataPenitipan['jumlah_hari'];
+	$metode_pembayaran = $dataPenitipan['metode_pembayaran'];
+	$pesan = $dataPenitipan['pesan'];
+	$harga_perhari = $dataPenitipan['harga_perhari'];
+	$harga_makanan = $dataPenitipan['harga_makanan'];
+	$total_harga = $dataPenitipan['total_harga'];
+	$bayar = $dataPenitipan['bayar'];
+	$ket = $dataPenitipan['ket'];
+	$waktu = $dataPenitipan['waktu'];
+
+	// Toko
+	$queryToko = mysqli_query($koneksi, "SELECT * FROM toko WHERE id_toko='$id_toko' ");
+	$dataToko = mysqli_fetch_array($queryToko);
+
+	$nama_toko = $dataToko['nama_toko'];
+	$nomor_hp = $dataToko['nomor_hp'];
+	$alamat = $dataToko['alamat'];
+	$nama_pemilik = $dataToko['nama_pemilik'];
+	$gambar_toko = $dataToko['gambar_toko'];
+	$link_instagram = $dataToko['link_instagram'];
+	$hari_operasional = $dataToko['hari_operasional'];
+	$jam_operasional = $dataToko['jam_operasional'];
+	$tanggal = $dataToko['tanggal'];
 }
 
-$queryPenitipan = mysqli_query($koneksi, "SELECT * FROM pesanan_penitipan WHERE id_user='$id_user' ");
-$dataPenitipan = mysqli_fetch_array($queryPenitipan);
-
-$id_pesanan_penitipan = $dataPenitipan['id_pesanan_penitipan'];
-$kode_unik = $dataPenitipan['kode_unik'];
-$id_toko = $dataPenitipan['id_toko'];
-$id_user = $dataPenitipan['id_user'];
-$nama_hewan = $dataPenitipan['nama_hewan'];
-$jenis_hewan = $dataPenitipan['jenis_hewan'];
-$tanggal_penitipan = $dataPenitipan['tanggal_penitipan'];
-$jumlah_hari = $dataPenitipan['jumlah_hari'];
-$metode_pembayaran = $dataPenitipan['metode_pembayaran'];
-$pesan = $dataPenitipan['pesan'];
-$harga_perhari = $dataPenitipan['harga_perhari'];
-$harga_makanan = $dataPenitipan['harga_makanan'];
-$total_harga = $dataPenitipan['total_harga'];
-$bayar = $dataPenitipan['bayar'];
-$ket = $dataPenitipan['ket'];
-$waktu = $dataPenitipan['waktu'];
-
-// Toko
-$queryToko = mysqli_query($koneksi, "SELECT * FROM toko WHERE id_toko='$id_toko' ");
-$dataToko = mysqli_fetch_array($queryToko);
-
-$nama_toko = $dataToko['nama_toko'];
-$nomor_hp = $dataToko['nomor_hp'];
-$alamat = $dataToko['alamat'];
-$nama_pemilik = $dataToko['nama_pemilik'];
-$gambar_toko = $dataToko['gambar_toko'];
-$link_instagram = $dataToko['link_instagram'];
-$hari_operasional = $dataToko['hari_operasional'];
-$jam_operasional = $dataToko['jam_operasional'];
-$tanggal = $dataToko['tanggal'];
-
 session_start();
- 
+
 $checkLogin = false;
 $checkToko = false;
 
 // Login
-if(isset($_COOKIE['id'])){
-$checkLogin = true;
-} else{
-$checkLogin = false;
+if (isset($_COOKIE['id'])) {
+	$checkLogin = true;
+} else {
+	$checkLogin = false;
 }
 
 $nama_toko_session = "";
 // Session
-if(isset($_SESSION['id_toko'])){
+if (isset($_SESSION['id_toko'])) {
 	$checkToko = true;
 
 	$id_toko_session = $_SESSION['id_toko'];
@@ -65,7 +65,7 @@ if(isset($_SESSION['id_toko'])){
 	$data = mysqli_fetch_array($query);
 
 	$nama_toko_session = $data['nama_toko'];
-} else{
+} else {
 	$checkToko = false;
 }
 ?>
@@ -159,25 +159,25 @@ if(isset($_SESSION['id_toko'])){
 				<i class="fa fa-shopping-cart text-dark media"></i>
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ml-auto">
-						<?php 
-							if(!$checkLogin){
+						<?php
+						if (!$checkLogin) {
 						?>
 							<li class="nav-item">
-							<a class="nav-link" href="../">Beranda
-							</a>
+								<a class="nav-link" href="../">Beranda
+								</a>
 							</li>
 						<?php
-							}
+						}
 						?>
-						<?php 
-							if($checkToko){
+						<?php
+						if ($checkToko) {
 						?>
 							<li class="nav-item">
-								<a class="nav-link" href="../toko/detail-toko.php?toko=<?=$id_toko?>"><?=$nama_toko?>
-							</a>
+								<a class="nav-link" href="../toko/detail-toko.php?toko=<?= $id_toko ?>"><?= $nama_toko ?>
+								</a>
 							</li>
 						<?php
-							}
+						}
 						?>
 						<!-- menu item -->
 						<li class="nav-item">
@@ -185,31 +185,31 @@ if(isset($_SESSION['id_toko'])){
 							</a>
 						</li>
 						<!-- menu item -->
-						<?php 
-							if($checkLogin){
+						<?php
+						if ($checkLogin) {
 
 						?>
 
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Pelayanan
-							</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="../penitipan/">Penitipan</a></li>
-								<li><a class="dropdown-item" href="../perawatan/">Perawatan</a></li>
-								<li><a class="dropdown-item" href="../operasi/">Operasi</a></li>
-								<li><a class="dropdown-item" href="../vaksin/">Vaksin</a></li>
-							</ul>
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Pelayanan
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li><a class="dropdown-item" href="../penitipan/">Penitipan</a></li>
+									<li><a class="dropdown-item" href="../perawatan/">Perawatan</a></li>
+									<li><a class="dropdown-item" href="../operasi/">Operasi</a></li>
+									<li><a class="dropdown-item" href="../vaksin/">Vaksin</a></li>
+								</ul>
 							</li>
 						<?php
-							} else{
-							?>
+						} else {
+						?>
 							<li class="nav-item" name="nav-pelayanan">
 								<a class="nav-link" href="../../login/">Pelayanan
 								</a>
 							</li>
-							<?php
-							}
+						<?php
+						}
 						?>
 						<!-- menu item -->
 						<li class="nav-item">
@@ -411,7 +411,7 @@ if(isset($_SESSION['id_toko'])){
 										<table border="0" width="100%" class="bg-light">
 											<tr>
 												<td width="100">
-													<label class="text-dark ml-2"><?=$waktu?></label>
+													<label class="text-dark ml-2"><?= $waktu ?></label>
 												</td>
 												<td>
 													<label class="text-success"><?= $keterangan ?> <br> <b class="text-primary">
