@@ -1,49 +1,44 @@
 <?php
-   require_once '../koneksi.php';
-   session_start();
+require_once '../koneksi.php';
+session_start();
 
 
-   $checkLogin = false;
+$checkLogin = false;
+$checkToko = false;
+
+
+// Login
+include 'notifikasi.php';
+
+$nama_toko = "";
+// Session
+if (isset($_SESSION['id_toko'])) {
+   $checkToko = true;
+
+   $id_toko = $_SESSION['id_toko'];
+   $query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
+   $data = mysqli_fetch_array($query);
+
+   $id_toko = $data['id_toko'];
+   $nama_toko = $data['nama_toko'];
+   $nomor_hp = $data['nomor_hp'];
+   $alamat = $data['alamat'];
+   $nama_pemilik = $data['nama_pemilik'];
+   $gambar_toko = $data['gambar_toko'];
+   $link_instagram = $data['link_instagram'];
+   $hari_operasional = $data['hari_operasional'];
+   $jam_operasional = $data['jam_operasional'];
+   $tanggal = $data['tanggal'];
+} else {
    $checkToko = false;
+}
 
-   // Login
-   if(isset($_COOKIE['id'])){
-      $id_user = $_COOKIE['id'];
-      $checkLogin = true;
-   } else{
-     $checkLogin = false;
-   }
+function rupiah($angka)
+{
 
-   $id_toko = "";
-
-   if(isset($_SESSION['id_toko'])){
-      $id_toko = $_SESSION['id_toko'];
-
-      $checkToko = true;
-      
-      $query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
-      $data = mysqli_fetch_array($query);
-
-      $id_toko = $data['id_toko'];
-      $nama_toko = $data['nama_toko'];
-      $nomor_hp = $data['nomor_hp'];
-      $alamat = $data['alamat'];
-      $nama_pemilik = $data['nama_pemilik'];
-      $gambar_toko = $data['gambar_toko'];
-      $link_instagram = $data['link_instagram'];
-      $hari_operasional = $data['hari_operasional'];
-      $jam_operasional = $data['jam_operasional'];
-      $tanggal = $data['tanggal'];
-   } else{
-      $checkToko = false;
-   }
-
-   function rupiah($angka)
-   {
-
-      $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
-      return $hasil_rupiah;
-   }
+   $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
+   return $hasil_rupiah;
+}
 ?>
 
 <!DOCTYPE html>
@@ -115,34 +110,34 @@
             </a>
             <i class="fa fa-shopping-cart text-dark media"></i>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+               <ul class="navbar-nav ml-auto">
                   <!-- menu item -->
-                  <?php 
-                     if(!$checkLogin){
+                  <?php
+                  if (!$checkLogin) {
 
                   ?>
-                     
+
                      <li class="nav-item active">
                         <a class="nav-link" href="../user/">Beranda
                         </a>
                      </li>
                   <?php
-                     }
+                  }
                   ?>
-                  <?php 
-                     if($checkToko){
+                  <?php
+                  if ($checkToko) {
 
                   ?>
-                     
+
                      <li class="nav-item">
-                        <a class="nav-link" href="toko/detail-toko.php?toko=<?=$id_toko?>"><?=$nama_toko?>
+                        <a class="nav-link" href="toko/detail-toko.php?toko=<?= $id_toko ?>"><?= $nama_toko ?>
                         </a>
                      </li>
                   <?php
-                     }
+                  }
                   ?>
-                  
-               
+
+
                   <!-- menu item -->
                   <li class="nav-item">
                      <a class="nav-link" href="toko/">Toko
@@ -154,10 +149,10 @@
                         Pelayanan
                      </a>
                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="penitipan/?toko=<?=$id_toko?>">Penitipan</a></li>
-                        <li><a class="dropdown-item" href="perawatan/?toko=<?=$id_toko?>">Perawatan</a></li>
-                        <li><a class="dropdown-item" href="operasi/?toko=<?=$id_toko?>">Operasi</a></li>
-                        <li><a class="dropdown-item" href="vaksin/?toko=<?=$id_toko?>">Vaksin</a></li>
+                        <li><a class="dropdown-item" href="penitipan/?toko=<?= $id_toko ?>">Penitipan</a></li>
+                        <li><a class="dropdown-item" href="perawatan/?toko=<?= $id_toko ?>">Perawatan</a></li>
+                        <li><a class="dropdown-item" href="operasi/?toko=<?= $id_toko ?>">Operasi</a></li>
+                        <li><a class="dropdown-item" href="vaksin/?toko=<?= $id_toko ?>">Vaksin</a></li>
                      </ul>
                   </li>
                   <!-- menu item -->
@@ -166,24 +161,27 @@
                      </a>
                   </li>
                   <!-- menu item -->
-                  <?php 
-                     if(!$checkLogin){
+                  <?php
+                  if (!$checkLogin) {
                   ?>
-                     
+
                      <li class="nav-item">
                         <a class="nav-link" href="../login/">Login
                         </a>
                      </li>
                   <?php
-                     } else{
+                  } else {
                   ?>
                      <!-- menu item -->
                      <li class="nav-item">
                         <a class="nav-link" href="profile/">Profil
+                           <span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              <?= $notifikasi ?>
+                           </span>
                         </a>
                      </li>
                   <?php
-                     }
+                  }
                   ?>
                </ul>
                <!--/ul -->
@@ -275,10 +273,10 @@
          <div class="row">
             <div class="carousel-4items owl-carousel owl-theme">
                <!-- Team member 1 -->
-               
-               <?php 
+
+               <?php
                $query = mysqli_query($koneksi, "SELECT * FROM `toko` ");
-               while($row = mysqli_fetch_assoc($query)){
+               while ($row = mysqli_fetch_assoc($query)) {
                   $id_toko = $row['id_toko'];
                   $nama_toko = $row['nama_toko'];
                   $nomor_hp = $row['nomor_hp'];
@@ -290,20 +288,20 @@
                   <div class="col-md-12">
                      <div class="team-style1">
                         <div class="team_img">
-                           <img src="../gambar/toko/<?=$gambar_toko?>" class="img-fluid" alt="">
+                           <img src="../gambar/toko/<?= $gambar_toko ?>" class="img-fluid" alt="">
                            <!-- social icons -->
                            <ul class="social">
                               <li><a href=""><i class="fab fa-whatsapp"></i></a></li>
-                              <li><a href="<?=$link_instagram?>" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                              <li><a href="<?= $link_instagram ?>" target="_blank"><i class="fab fa-instagram"></i></a></li>
                            </ul>
                         </div>
                         <!-- /team_img -->
                         <div class="team-content">
-                           <a href="toko/detail-toko.php?toko=<?=$id_toko?>">
-                              <h5 class="title"><?=$nama_toko?></h5>
+                           <a href="toko/detail-toko.php?toko=<?= $id_toko ?>">
+                              <h5 class="title"><?= $nama_toko ?></h5>
                            </a>
                            <span class="post">
-                              <i class="fas fa-map-marker-alt mr-2 text-danger"></i><?=$alamat?>
+                              <i class="fas fa-map-marker-alt mr-2 text-danger"></i><?= $alamat ?>
                            </span>
                         </div>
                         <!-- /team-content -->
@@ -313,7 +311,7 @@
                <?php
                }
                ?>
-               
+
                <!-- -Team member 5 -->
             </div>
             <!-- /owl-carousel -->
@@ -324,7 +322,7 @@
    </section>
    <!-- /section ends -->
    <!-- section -->
-   
+
    <!-- /section ends -->
    <!-- section -->
    <section id="pelayanan" class="bg-light pattern1">
@@ -339,8 +337,8 @@
             <!-- service 1  -->
             <!-- <div class="col-md-12">
                <div class="serviceBox2"> -->
-                  <!-- service icon -->
-                  <!-- <a href="../registrasi/index.php">
+            <!-- service icon -->
+            <!-- <a href="../registrasi/index.php">
                      <div class="service-icon">
                         <i class="flaticon-dog-training-3"></i>
                      </div>
@@ -349,7 +347,7 @@
                         <h5>Pelatihan</h5>
                      </div>
                   </a> -->
-               <!-- </div>
+            <!-- </div>
             </div> -->
             <!-- service 2  -->
             <div class="col-md-12">
@@ -459,7 +457,7 @@
       </div>
       <!-- /container -->
    </section>
-   
+
    <!--/ footer-->
    <!-- Bootstrap core & Jquery -->
    <script src="../vendor/jquery/jquery.min.js"></script>

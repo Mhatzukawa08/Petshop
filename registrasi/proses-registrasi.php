@@ -20,11 +20,10 @@
 		$nama = $_POST['nama'];
 		$nomor_hp = $_POST['nomor_hp'];
 		$alamat = $_POST['alamat'];
-		$username = $_POST['username'];
-		$password = $_POST['password'];
+		$id_pelanggan = $_POST['id_pelanggan'];
 	
-		$query = mysqli_query($koneksi,"INSERT INTO user (`nama`, `nomor_hp`, `alamat`, `username`, `password`, `tanggal`) 
-		VALUES ('$nama', '$nomor_hp', '$alamat', '$username', '$password', '$tanggalDanWaktu') ");
+		$query = mysqli_query($koneksi,"INSERT INTO user (`nama`, `nomor_hp`, `alamat`, `id_pelanggan`, `tanggal`) 
+		VALUES ('$nama', '$nomor_hp', '$alamat', '$id_pelanggan', '$tanggalDanWaktu') ");
 		
 		if ($query){
 			echo '<script language="javascript">
@@ -77,7 +76,7 @@
 				VALUES ('$id_toko', '$nama_toko', '$nomor_hp_toko', '$alamat', '$nama_pemilik', '$gambar', '$link_instagram', '$hari_operasional', '$jam_operasional', '$tanggalDanWaktu') ");
 
 				$queryTambahDokter = mysqli_query($koneksi,"INSERT INTO `karyawan_dokter` (`id_toko`, `nama`, `nomor_hp`, `alamat`, `username`, `password`, `sebagai`, `tanggal`) 
-				VALUES ('$id_toko', '$nama_pemilik', '$nomor_hp_pemilik', '$alamat', '$username', '$password', 'dokter', '$tanggalDanWaktu') ");
+				VALUES ('$id_toko', '$nama_pemilik', '$nomor_hp_pemilik', '$alamat', '$username', '$password', 'pemilik', '$tanggalDanWaktu') ");
 				
 				if ($queryTambahToko && $queryTambahDokter){
 					echo '<script language="javascript">

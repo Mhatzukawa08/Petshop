@@ -7,11 +7,18 @@
 
 	$nama_toko = "";
 
-	if (isset($_GET['toko'])) {
-		$id_toko = $_GET['toko'];
+	// Login
+	include '../notifikasi.php';
+	
+	$nama_toko = "";
+	// Session
+	if (isset($_SESSION['id_toko'])) {
+		$checkToko = true;
+	
+		$id_toko = $_SESSION['id_toko'];
 		$query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
 		$data = mysqli_fetch_array($query);
-
+	
 		$id_toko = $data['id_toko'];
 		$nama_toko = $data['nama_toko'];
 		$nomor_hp = $data['nomor_hp'];
@@ -204,6 +211,9 @@
 						<!-- menu item -->
 						<li class="nav-item active">
 							<a class="nav-link" href="../profile/">Profil
+								<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									<?= $notifikasi ?>
+								</span>
 							</a>
 						</li>
   					</ul>

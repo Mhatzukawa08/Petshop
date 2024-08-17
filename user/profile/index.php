@@ -4,17 +4,13 @@
  
 	$checkLogin = false;
 	$checkToko = false;
- 
+	
 	// Login
-	if(isset($_COOKIE['id'])){
-	   $checkLogin = true;
-	} else{
-	   $checkLogin = false;
-	}
- 
+	include '../notifikasi.php';
+	
 	$nama_toko = "";
 	// Session
-	if(isset($_SESSION['id_toko'])){
+	if (isset($_SESSION['id_toko'])) {
 		$checkToko = true;
 	
 		$id_toko = $_SESSION['id_toko'];
@@ -31,7 +27,6 @@
 		$hari_operasional = $data['hari_operasional'];
 		$jam_operasional = $data['jam_operasional'];
 		$tanggal = $data['tanggal'];
- 
 	} else{
 	   $checkToko = false;
 	}
@@ -185,6 +180,9 @@
 						<!-- menu item -->
 						<li class="nav-item active">
 							<a class="nav-link" href="../profile/">Profil
+								<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									<?= $notifikasi ?>
+								</span>
 							</a>
 						</li>
   					</ul>
@@ -252,7 +250,10 @@
   						<a href="layanan.php">
   							<div class="col-lg-12">
   								<i class="flaticon-vet-with-cat text-dark h4"></i>
-  								<label class="text-dark h6 ml-2"><b>Layanan</b></label>
+  								<label class="text-dark h6 ml-2"><b>Layanan </b> 
+								<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									<?= $notifikasi ?>
+								</span></label>
   							</div>
   						</a>
 						  <a href="riwayat-layanan.php">

@@ -8,6 +8,9 @@ $nama_user = $_COOKIE['nama'];
 $nama_toko_session = "";
 $nama_toko = "";
 
+// Login
+include '../notifikasi.php';
+
 $id_pemesanan = $_GET['pesanan'];
 
 if (isset($_GET['toko'])) {
@@ -214,6 +217,9 @@ if(isset($_SESSION['id_toko'])){
 						<!-- menu item -->
 						<li class="nav-item active">
 							<a class="nav-link" href="../profile/">Profil
+								<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									<?= $notifikasi ?>
+								</span>
 							</a>
 						</li>
   					</ul>

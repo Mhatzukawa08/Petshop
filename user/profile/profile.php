@@ -5,12 +5,14 @@
 	$nama = "-";
 	$nomor_hp = "-";
 	$alamat = "-";
-	$username = "-";
-	$password = "-";
 	$tanggal = "-";
+	$id_pelanggan = "-";
 
 	$checkLogin = false;
 	$checkToko = false;
+	
+	// Login
+	include '../notifikasi.php';
 
 	if(isset($_COOKIE['id'])){
 	   	$checkLogin = true;
@@ -24,9 +26,8 @@
 		$nama = $data['nama'];
 		$nomor_hp = $data['nomor_hp'];
 		$alamat = $data['alamat'];
-		$username = $data['username'];
-		$password = $data['password'];
 		$tanggal = $data['tanggal'];
+		$id_pelanggan = $data['id_pelanggan'];
 	} else{
 		$checkLogin = false;
 	}
@@ -211,6 +212,9 @@
 						<!-- menu item -->
 						<li class="nav-item active">
 							<a class="nav-link" href="../profile/">Profil
+								<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									<?= $notifikasi ?>
+								</span>
 							</a>
 						</li>
   					</ul>
@@ -268,45 +272,23 @@
 			</div> -->
 			<div class="col-md-6">
 				<label for="nama" class="form-label">Nama</label>
-				<label class="form-control" id="nama"><?=$nama?></label>
+				<label class="form-control" id="nama" style="margin-top: -5px;"><?=$nama?></label>
 			</div>
 			<div class="col-md-6">
 				<label for="nomor" class="form-label">Nomor HP</label>
-				<label class="form-control" id="nomor"><?=$nomor_hp?></label>
+				<label class="form-control" id="nomor" style="margin-top: -5px;"><?=$nomor_hp?></label>
 			</div>
 			<div class="col-12 mt-2">
 				<label for="alamat" class="form-label">Alamat</label>
-				<label class="form-control"><?=$alamat?></label>
+				<label class="form-control" style="margin-top: -5px;"><?=$alamat?></label>
 			</div>
-			<div class="col-md-6">
-				<label for="username" class="form-label">Username</label>
-				<label class="form-control" id="username"><?=$username?></label>
-			</div>
-			<div class="col-md-6">
-				<label for="password" class="form-label">Password</label>
-				<label class="form-control" id="password"><?=$password?></label>
+			<div class="col-12 mt-2">
+				<label for="id_pelanggan" class="form-label">id_pelanggan</label>
+				<label class="form-control" style="margin-top: -5px;"><?=$id_pelanggan?></label>
 			</div>
 			<div class="col-12 mt-2">
 				<button type="submit" class="btn btn-primary" style="width: 100%;" data-bs-toggle="modal" data-bs-target="#editData">Edit Data</button>
 			</div>
-			<!-- <div class="col" style="margin-top: 20px;">
-				<label for="">Nomor Hp</label>
-				<input type="text" class="form-control" placeholder="Nomor Hp" aria-label="Nomor Hp">
-			</div>
-			<div class="col-lg-12">
-				<label for="basic-url" class="form-label">Alamat</label>
-				<textarea class="form-control" placeholder="Masukkan Alamat" id="floatingTextarea"></textarea>
-
-			</div>
-			<div class="col" style="margin-top: 20px;">
-				<label for="">Username</label>
-				<input type="text" class="form-control" placeholder="Username" aria-label="Username">
-			</div>
-			<div class="col" style="margin-top: 20px;">
-				<label for="">Password</label>
-				<input type="text" class="form-control" placeholder="Password" aria-label="Password">
-			</div>  -->
-			
 
 			<div class="modal fade" id="editData" tabindex="-1" aria-labelledby="editDataModal" aria-hidden="true">
 				<div class="modal-dialog">
@@ -324,19 +306,15 @@
 								</div>
 								<div class="mb-2">
 									<label for="nomor_hp" class="form-label">Nomor Hp</label>
-									<input type="text" class="form-control" id="nomor_hp" name="nomor_hp" placeholder="Masukkan Nomor Hpp" value="<?=$nomor_hp?>" >
+									<input type="number" class="form-control" id="nomor_hp" name="nomor_hp" placeholder="Masukkan Nomor Hpp" value="<?=$nomor_hp?>" >
 								</div>
 								<div class="mb-2">
 									<label for="alamat" class="form-label">Alamat</label>
 									<input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukkan Alamat" value="<?=$alamat?>" >
 								</div>
 								<div class="mb-2">
-									<label for="username" class="form-label">username</label>
-									<input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username" value="<?=$username?>" >
-								</div>
-								<div class="mb-2">
-									<label for="password" class="form-label">password</label>
-									<input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" value="<?=$password?>" >
+									<label for="id_pelanggan" class="form-label">id_pelanggan</label>
+									<label class="form-control" ><?=$id_pelanggan?></label>
 								</div>
 							</div>
 							<div class="modal-footer">

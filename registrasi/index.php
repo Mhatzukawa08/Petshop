@@ -1,3 +1,22 @@
+<?php 
+	include('../koneksi.php');
+
+  function kataAcak(): string{
+    $acak = "";
+    // $kata = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+    $kata = "1234567890";
+    for($i=0; $i<5; $i++){
+        $pos = rand(0, strlen($kata)-1);
+        $acak .= $kata[$pos];
+    }
+    return $acak;
+  }
+  $angkaAcak = kataAcak();
+
+  $user = mysqli_query($koneksi, "SELECT * FROM user ORDER BY id_user DESC");
+  $dataUser = mysqli_fetch_array($user);
+  $id_user = $dataUser['id_user']+1;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,8 +69,8 @@
               <div class="col-lg-12">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4" id="title_registrasi">REGISTRASI USER</h1>
-                    <button type="button" onclick="registrasiUser()" class="btn btn-primary">User</button>
+                    <h1 class="h4 text-gray-900 mb-4" id="title_registrasi">REGISTRASI PELANGGAN</h1>
+                    <button type="button" onclick="registrasiUser()" class="btn btn-primary">Pelanggan</button>
                     <button type="button" onclick="registrasiToko()" class="btn btn-primary">Toko</button>
                   </div>
                 </div>
@@ -70,12 +89,9 @@
                       <input type="text" name="alamat" id="alamat" class="form-control form-control-user" placeholder="Masukkan Alamat" required>
                     </div>
                     <div class="form-group" style="margin-top: -15px;">
-                      <label for="username">username</label>
-                      <input type="text" name="username" id="username" class="form-control form-control-user" placeholder="Masukkan Username" required>
-                    </div>
-                    <div class="form-group" style="margin-top: -15px;">
-                      <label for="password">password</label>
-                      <input type="password" name="password" id="password" class="form-control form-control-user" placeholder="Password" required>
+                      <label for="id_pelanggan">ID Pelanggan</label>
+                      <input type="text" name="id_pelanggan" value="pelanggan<?=$id_user?><?=$angkaAcak?>" hidden>
+                      <p name="id_pelanggan" class="form-control form-control-user">pelanggan<?=$id_user?><?=$angkaAcak?></p>
                     </div>
                     <div class="form-group" style="margin-top: 15px;">
                     </div>
@@ -172,7 +188,7 @@
       document.getElementById('registrasi_toko').hidden = true;
 
       var docTitleRegistrasi = document.getElementById('title_registrasi')
-      docTitleRegistrasi.innerHTML = 'REGISTRASI USER';
+      docTitleRegistrasi.innerHTML = 'REGISTRASI PELANGGAN';
 
       var doc = document.getElementById('registrasi')
 

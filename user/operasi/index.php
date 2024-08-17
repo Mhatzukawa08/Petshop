@@ -10,30 +10,27 @@ $checkLogin = false;
 $checkToko = false;
 
 // Login
-if(isset($_COOKIE['id'])){
-	$checkLogin = true;
-} else{
-	$checkLogin = false;
-}
+include '../notifikasi.php';
 
 if (isset($_SESSION['id_toko'])) {
-	$checkToko = true;
-	
-	$id_toko = $_SESSION['id_toko'];
-	$query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
-	$data = mysqli_fetch_array($query);
+  $checkToko = true;
 
-	$id_toko = $data['id_toko'];
-	$nama_toko = $data['nama_toko'];
-	$nomor_hp = $data['nomor_hp'];
-	$alamat = $data['alamat'];
-	$nama_pemilik = $data['nama_pemilik'];
-	$gambar_toko = $data['gambar_toko'];
-	$link_instagram = $data['link_instagram'];
-	$hari_operasional = $data['hari_operasional'];
-	$jam_operasional = $data['jam_operasional'];
-	$tanggal = $data['tanggal'];
-} else{
+  $id_toko = $_SESSION['id_toko'];
+  $query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
+  $data = mysqli_fetch_array($query);
+
+  $id_toko = $data['id_toko'];
+  $nama_toko = $data['nama_toko'];
+  $nomor_hp = $data['nomor_hp'];
+  $alamat = $data['alamat'];
+  $nama_pemilik = $data['nama_pemilik'];
+  $gambar_toko = $data['gambar_toko'];
+  $link_instagram = $data['link_instagram'];
+  $hari_operasional = $data['hari_operasional'];
+  $jam_operasional = $data['jam_operasional'];
+  $tanggal = $data['tanggal'];
+
+} else {
   header("location:../toko/");
 }
 
@@ -63,7 +60,6 @@ while ($row = mysqli_fetch_assoc($queryMemisahkanBerdasaknaIdJenisHewan)) {
     $harga
   );
   array_push($arraySemuaData, $arrayData);
-
 };
 
 $jsonArray = json_encode($arraySemuaData);
@@ -162,45 +158,45 @@ $jsonArray = json_encode($arraySemuaData);
           <ul class="navbar-nav ml-auto">
             <!-- menu item -->
             <li class="nav-item">
-							<a class="nav-link" href="../toko/detail-toko.php?toko=<?=$id_toko?>"><?=$nama_toko?>
-							</a>
-						</li>
-						<!-- menu item -->
-						<li class="nav-item">
-							<a class="nav-link" href="../toko/">Toko
-							</a>
-						</li>
-						<!-- menu item -->
-						<?php 
-							if($checkLogin){
+              <a class="nav-link" href="../toko/detail-toko.php?toko=<?= $id_toko ?>"><?= $nama_toko ?>
+              </a>
+            </li>
+            <!-- menu item -->
+            <li class="nav-item">
+              <a class="nav-link" href="../toko/">Toko
+              </a>
+            </li>
+            <!-- menu item -->
+            <?php
+            if ($checkLogin) {
 
-						?>
-							<!-- <li class="nav-item" name="nav-pelayanan">
-								<a class="nav-link" href="../penitipan/?toko=<?=$id_toko?>">Pelayanan
+            ?>
+              <!-- <li class="nav-item" name="nav-pelayanan">
+								<a class="nav-link" href="../penitipan/?toko=<?= $id_toko ?>">Pelayanan
 								</a>
 							</li> -->
 
-							<li class="nav-item dropdown active">
-								<a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Pelayanan
-								</a>
-								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="../penitipan/">Penitipan</a></li>
-								<li><a class="dropdown-item" href="../perawatan/">Perawatan</a></li>
-								<li><a class="dropdown-item active" href="../operasi/">Operasi</a></li>
-								<li><a class="dropdown-item" href="../vaksin/">Vaksin</a></li>
-								</ul>
-							</li>
-						<?php
-							} else{
-							?>
-								<li class="nav-item" name="nav-pelayanan">
-								<a class="nav-link" href="../../login/">Pelayanan
-								</a>
-								</li>
-							<?php
-							}
-						?>
+              <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Pelayanan
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="../penitipan/">Penitipan</a></li>
+                  <li><a class="dropdown-item" href="../perawatan/">Perawatan</a></li>
+                  <li><a class="dropdown-item active" href="../operasi/">Operasi</a></li>
+                  <li><a class="dropdown-item" href="../vaksin/">Vaksin</a></li>
+                </ul>
+              </li>
+            <?php
+            } else {
+            ?>
+              <li class="nav-item" name="nav-pelayanan">
+                <a class="nav-link" href="../../login/">Pelayanan
+                </a>
+              </li>
+            <?php
+            }
+            ?>
             <!-- menu item -->
             <li class="nav-item">
               <a class="nav-link" href="../produk/">Produk
@@ -209,6 +205,9 @@ $jsonArray = json_encode($arraySemuaData);
             <!-- menu item -->
             <li class="nav-item">
               <a class="nav-link" href="../profile/">Profil
+                <span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <?= $notifikasi ?>
+                </span>
               </a>
             </li>
           </ul>
@@ -310,31 +309,31 @@ $jsonArray = json_encode($arraySemuaData);
               <select name="jenis_hewan" class="form-control" id="jenis_hewan" onchange="showSelectJenisPerawatan()" required>
                 <option></option>
                 <?php
-                  $query = mysqli_query($koneksi, "SELECT * FROM `jenis_hewan` WHERE id_toko='$id_toko' ");
-                  while ($row = mysqli_fetch_assoc($query)) {
-                    $id_jenis_hewan = $row['id_jenis_hewan'];
-                    $id_toko = $row['id_toko'];
-                    $jenis_hewan = $row['jenis_hewan'];
+                $query = mysqli_query($koneksi, "SELECT * FROM `jenis_hewan` WHERE id_toko='$id_toko' ");
+                while ($row = mysqli_fetch_assoc($query)) {
+                  $id_jenis_hewan = $row['id_jenis_hewan'];
+                  $id_toko = $row['id_toko'];
+                  $jenis_hewan = $row['jenis_hewan'];
 
-                    $queryCekJenisHewan = mysqli_query($koneksi, "SELECT * FROM `operasi` WHERE jenis_hewan='$id_jenis_hewan' ");
-                    $rowCekJenisHewan = mysqli_num_rows($queryCekJenisHewan);
-                    if($rowCekJenisHewan>0){
+                  $queryCekJenisHewan = mysqli_query($koneksi, "SELECT * FROM `operasi` WHERE jenis_hewan='$id_jenis_hewan' ");
+                  $rowCekJenisHewan = mysqli_num_rows($queryCekJenisHewan);
+                  if ($rowCekJenisHewan > 0) {
                 ?>
-                  <option value="<?= $id_jenis_hewan . ";" . $jenis_hewan ?>"><?= $jenis_hewan ?></option>
+                    <option value="<?= $id_jenis_hewan . ";" . $jenis_hewan ?>"><?= $jenis_hewan ?></option>
 
-                <?php 
-                    }
-                  } 
-                
+                <?php
+                  }
+                }
+
                 ?>
               </select>
             </div>
             <div class="form-group">
               <label for="" id="title_jenis_perawatan" style="display: none;">Jenis Operasi</label>
-                <select name="jenis_operasi" id="jenis_operasi" class="form-control" style="display: none;">
-                  <!-- Data akan masuk kesini -->
+              <select name="jenis_operasi" id="jenis_operasi" class="form-control" style="display: none;">
+                <!-- Data akan masuk kesini -->
 
-                </select>
+              </select>
             </div>
 
             <div class="form-group">
@@ -361,7 +360,7 @@ $jsonArray = json_encode($arraySemuaData);
         </div>
         <!-- /col-lg-9 -->
         <!-- ==== Sidebar ==== -->
-        
+
         <!-- /sidebar -->
       </div>
       <!-- /row-->
@@ -412,7 +411,7 @@ $jsonArray = json_encode($arraySemuaData);
           valueArray.push(value);
           checkboxHtml += '' +
             '<div class="col-lg-3">' +
-            '<option value="'+value[0]+';;'+value[3]+';;'+value[4]+'">'+value[3]+'</option>' +
+            '<option value="' + value[0] + ';;' + value[3] + ';;' + value[4] + '">' + value[3] + '</option>' +
             '</div>';
         }
       });

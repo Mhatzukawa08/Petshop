@@ -9,65 +9,62 @@ $checkLogin = false;
 $checkToko = false;
 
 // Login
-if(isset($_COOKIE['id'])){
-	$checkLogin = true;
-} else{
-	$checkLogin = false;
-  header("location:../../login/");
-}
+include '../notifikasi.php';
 
+$nama_toko = "";
+// Session
 if (isset($_SESSION['id_toko'])) {
-	$checkToko = true;
-	
-	$id_toko = $_SESSION['id_toko'];
-	$query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
-	$data = mysqli_fetch_array($query);
+  $checkToko = true;
 
-	$id_toko = $data['id_toko'];
-	$nama_toko = $data['nama_toko'];
-	$nomor_hp = $data['nomor_hp'];
-	$alamat = $data['alamat'];
-	$nama_pemilik = $data['nama_pemilik'];
-	$gambar_toko = $data['gambar_toko'];
-	$link_instagram = $data['link_instagram'];
-	$hari_operasional = $data['hari_operasional'];
-	$jam_operasional = $data['jam_operasional'];
-	$tanggal = $data['tanggal'];
-} else{
-	header("location:../toko/");
+  $id_toko = $_SESSION['id_toko'];
+  $query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
+  $data = mysqli_fetch_array($query);
+
+  $id_toko = $data['id_toko'];
+  $nama_toko = $data['nama_toko'];
+  $nomor_hp = $data['nomor_hp'];
+  $alamat = $data['alamat'];
+  $nama_pemilik = $data['nama_pemilik'];
+  $gambar_toko = $data['gambar_toko'];
+  $link_instagram = $data['link_instagram'];
+  $hari_operasional = $data['hari_operasional'];
+  $jam_operasional = $data['jam_operasional'];
+  $tanggal = $data['tanggal'];
+
+} else {
+  header("location:../toko/");
 }
 
 
-  $arraySemuaData = array();
+$arraySemuaData = array();
 
-  $queryMemisahkanBerdasaknaIdJenisHewan = mysqli_query($koneksi, "SELECT * FROM `perawatan` WHERE id_toko='$id_toko' ORDER BY jenis_hewan ASC ");
-  while ($row = mysqli_fetch_assoc($queryMemisahkanBerdasaknaIdJenisHewan)) {
-    $id_perawatan = $row['id_perawatan'];
-    $id_toko = $row['id_toko'];
-    $jenis_hewan = $row['jenis_hewan'];
-    $jenis_perawatan = $row['jenis_perawatan'];
-    $harga = $row['harga'];
+$queryMemisahkanBerdasaknaIdJenisHewan = mysqli_query($koneksi, "SELECT * FROM `perawatan` WHERE id_toko='$id_toko' ORDER BY jenis_hewan ASC ");
+while ($row = mysqli_fetch_assoc($queryMemisahkanBerdasaknaIdJenisHewan)) {
+  $id_perawatan = $row['id_perawatan'];
+  $id_toko = $row['id_toko'];
+  $jenis_hewan = $row['jenis_hewan'];
+  $jenis_perawatan = $row['jenis_perawatan'];
+  $harga = $row['harga'];
 
-    // $arrayData = array(
-    //   "id_perawatan" => $id_perawatan,
-    //   "id_toko" => $id_toko,
-    //   "jenis_hewan" => $jenis_hewan,
-    //   "jenis_perawatan" => $jenis_perawatan,
-    //   "harga" => $harga
-    // );
+  // $arrayData = array(
+  //   "id_perawatan" => $id_perawatan,
+  //   "id_toko" => $id_toko,
+  //   "jenis_hewan" => $jenis_hewan,
+  //   "jenis_perawatan" => $jenis_perawatan,
+  //   "harga" => $harga
+  // );
 
-    $arrayData = array(
-      $id_perawatan,
-      $id_toko,
-      $jenis_hewan,
-      $jenis_perawatan,
-      $harga
-    );
-    array_push($arraySemuaData, $arrayData);
+  $arrayData = array(
+    $id_perawatan,
+    $id_toko,
+    $jenis_hewan,
+    $jenis_perawatan,
+    $harga
+  );
+  array_push($arraySemuaData, $arrayData);
+};
 
-  };
-
-  $jsonArray = json_encode($arraySemuaData);
+$jsonArray = json_encode($arraySemuaData);
 
 ?>
 
@@ -156,7 +153,7 @@ if (isset($_SESSION['id_toko'])) {
     <div class="navbar container-fluid">
       <div class="container ">
         <!-- logo -->
-        <a class="nav-brand" href="../toko/detail-toko.php?toko=<?=$id_toko?>">
+        <a class="nav-brand" href="../toko/detail-toko.php?toko=<?= $id_toko ?>">
           <img src="../../img/logo.png" alt="" class="img-fluid">
         </a>
         <i class="fa fa-shopping-cart text-dark media"></i>
@@ -164,45 +161,45 @@ if (isset($_SESSION['id_toko'])) {
           <ul class="navbar-nav ml-auto">
             <!-- menu item -->
             <li class="nav-item">
-							<a class="nav-link" href="../toko/detail-toko.php?toko=<?=$id_toko?>"><?=$nama_toko?>
-							</a>
-						</li>
-						<!-- menu item -->
-						<li class="nav-item">
-							<a class="nav-link" href="../toko/">Toko
-							</a>
-						</li>
-						<!-- menu item -->
-						<?php 
-							if($checkLogin){
+              <a class="nav-link" href="../toko/detail-toko.php?toko=<?= $id_toko ?>"><?= $nama_toko ?>
+              </a>
+            </li>
+            <!-- menu item -->
+            <li class="nav-item">
+              <a class="nav-link" href="../toko/">Toko
+              </a>
+            </li>
+            <!-- menu item -->
+            <?php
+            if ($checkLogin) {
 
-						?>
-							<!-- <li class="nav-item" name="nav-pelayanan">
-								<a class="nav-link" href="../penitipan/?toko=<?=$id_toko?>">Pelayanan
+            ?>
+              <!-- <li class="nav-item" name="nav-pelayanan">
+								<a class="nav-link" href="../penitipan/?toko=<?= $id_toko ?>">Pelayanan
 								</a>
 							</li> -->
 
-							<li class="nav-item dropdown active">
+              <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Pelayanan
-								</a>
-								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<li><a class="dropdown-item" href="../penitipan/">Penitipan</a></li>
-									<li><a class="dropdown-item active" href="../perawatan/">Perawatan</a></li>
-									<li><a class="dropdown-item" href="../operasi/">Operasi</a></li>
-									<li><a class="dropdown-item" href="../vaksin/">Vaksin</a></li>
-								</ul>
-							</li>
-						<?php
-							} else{
-							?>
-								<li class="nav-item" name="nav-pelayanan">
-								<a class="nav-link" href="../../login/">Pelayanan
-								</a>
-								</li>
-							<?php
-							}
-						?>
+                  Pelayanan
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="../penitipan/">Penitipan</a></li>
+                  <li><a class="dropdown-item active" href="../perawatan/">Perawatan</a></li>
+                  <li><a class="dropdown-item" href="../operasi/">Operasi</a></li>
+                  <li><a class="dropdown-item" href="../vaksin/">Vaksin</a></li>
+                </ul>
+              </li>
+            <?php
+            } else {
+            ?>
+              <li class="nav-item" name="nav-pelayanan">
+                <a class="nav-link" href="../../login/">Pelayanan
+                </a>
+              </li>
+            <?php
+            }
+            ?>
             <!-- menu item -->
             <li class="nav-item">
               <a class="nav-link" href="../produk/">Produk
@@ -211,6 +208,9 @@ if (isset($_SESSION['id_toko'])) {
             <!-- menu item -->
             <li class="nav-item">
               <a class="nav-link" href="../profile/">Profil
+                <span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <?= $notifikasi ?>
+                </span>
               </a>
             </li>
           </ul>
@@ -310,42 +310,42 @@ if (isset($_SESSION['id_toko'])) {
             <div class="form-group">
               <label for="jenis_hewan">Jenis Hewan</label>
               <select name="jenis_hewan" class="form-control" id="jenis_hewan"
-                      onchange="showSelectJenisPerawatan()" required>
+                onchange="showSelectJenisPerawatan()" required>
                 <option></option>
                 <?php
-                  $query = mysqli_query($koneksi, "SELECT * FROM `jenis_hewan` WHERE id_toko='$id_toko' ");
-                  while ($row = mysqli_fetch_assoc($query)) {
-                    $id_jenis_hewan = $row['id_jenis_hewan'];
-                    $id_toko = $row['id_toko'];
-                    $jenis_hewan = $row['jenis_hewan'];
+                $query = mysqli_query($koneksi, "SELECT * FROM `jenis_hewan` WHERE id_toko='$id_toko' ");
+                while ($row = mysqli_fetch_assoc($query)) {
+                  $id_jenis_hewan = $row['id_jenis_hewan'];
+                  $id_toko = $row['id_toko'];
+                  $jenis_hewan = $row['jenis_hewan'];
 
-                    $queryCekJenisHewan = mysqli_query($koneksi, "SELECT * FROM `perawatan` WHERE jenis_hewan='$id_jenis_hewan' ");
-                    $rowCekJenisHewan = mysqli_num_rows($queryCekJenisHewan);
-                    if($rowCekJenisHewan>0){
+                  $queryCekJenisHewan = mysqli_query($koneksi, "SELECT * FROM `perawatan` WHERE jenis_hewan='$id_jenis_hewan' ");
+                  $rowCekJenisHewan = mysqli_num_rows($queryCekJenisHewan);
+                  if ($rowCekJenisHewan > 0) {
                 ?>
-                  <option value="<?= $id_jenis_hewan . ";" . $jenis_hewan ?>"><?= $jenis_hewan ?></option>
+                    <option value="<?= $id_jenis_hewan . ";" . $jenis_hewan ?>"><?= $jenis_hewan ?></option>
 
-                <?php 
-                    }
-                  } 
-                
+                <?php
+                  }
+                }
+
                 ?>
               </select>
             </div>
             <div class="form-group">
-                <label for="" id="title_jenis_perawatan" style="display: none;">Jenis Perawatan</label>
-                <div id="jenis_perawatan" style="display: none;">
-                    <!-- Data akan masuk kesini -->
-                </div>
+              <label for="" id="title_jenis_perawatan" style="display: none;">Jenis Perawatan</label>
+              <div id="jenis_perawatan" style="display: none;">
+                <!-- Data akan masuk kesini -->
+              </div>
             </div>
-            
+
             <div class="form-group">
-							<label for="exampleFormControlInput1">Metode Pembayaran</label>
-							<select name="metode_pembayaran" class="form-control" id="exampleFormControlInput1" required>
-								<option value="bayar_online">Bayar Online</option>
-								<option value="bayar_ditempat">Bayar Di Tempat</option>
-							</select>
-						</div>
+              <label for="exampleFormControlInput1">Metode Pembayaran</label>
+              <select name="metode_pembayaran" class="form-control" id="exampleFormControlInput1" required>
+                <option value="bayar_online">Bayar Online</option>
+                <option value="bayar_ditempat">Bayar Di Tempat</option>
+              </select>
+            </div>
             <div class="form-group">
               <label for="exampleFormControlInput1">Pesan</label>
               <textarea class="form-control" id="exampleFormControlTextarea1" name="pesan" id="pesan" rows="3"></textarea>
@@ -362,7 +362,7 @@ if (isset($_SESSION['id_toko'])) {
         </div>
         <!-- /col-lg-9 -->
         <!-- ==== Sidebar ==== -->
-        
+
         <!-- /sidebar -->
       </div>
       <!-- /row-->
@@ -373,7 +373,7 @@ if (isset($_SESSION['id_toko'])) {
   <!-- ==== footer ==== -->
   <footer class="bg-light pattern1 m-bottom no-img">
     <div class="container">
-      
+
       <!--/col-lg-12-->
     </div>
     <!--/ container -->
@@ -404,21 +404,21 @@ if (isset($_SESSION['id_toko'])) {
 
       var checkboxHtml = "";
 
-      var array = <?=$jsonArray?>;
+      var array = <?= $jsonArray ?>;
       var valueArray = [];
 
 
       array.forEach(value => {
-        if(value[2]== valueJenisHewan[0]){
+        if (value[2] == valueJenisHewan[0]) {
           valueArray.push(value);
-          checkboxHtml += ''+
-          '<div class="col-lg-3">'+
-            '<input type="checkbox" name="jenis_perawatan[]" id="'+value[0]+'" value="'+value[0]+';;'+value[3]+';;'+value[4]+'"> '+
-            '<label for="'+value[0]+'">'+value[3]+'</label>'+
-          '</div>';
+          checkboxHtml += '' +
+            '<div class="col-lg-3">' +
+            '<input type="checkbox" name="jenis_perawatan[]" id="' + value[0] + '" value="' + value[0] + ';;' + value[3] + ';;' + value[4] + '"> ' +
+            '<label for="' + value[0] + '">' + value[3] + '</label>' +
+            '</div>';
         }
       });
-      
+
       // Sembunyikan select2 jika pilihan pertama tidak dipilih
       if (select1.value === "") {
         select2.style.display = "none";

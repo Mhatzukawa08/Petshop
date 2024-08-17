@@ -1,76 +1,65 @@
 <?php
-   require_once '../../koneksi.php';
-   session_start();
+require_once '../../koneksi.php';
+session_start();
 
-   $checkLogin = false;
-   $checkToko = false;
+$checkLogin = false;
+$checkToko = false;
 
-   // setcookie("coba_data", "coba_data", time() + (86400 * 30), "/"); // // 24 jam * 7 hari = 1 Minggu
+// Login
+include '../notifikasi.php';
 
-   // setcookie("sebagai", "", time()-1, "/"); // 24 jam * 7 hari = 1 Minggu
-   // setcookie("id", "", time()-1, "/"); // 24 jam * 7 hari = 1 Minggu
-   // setcookie("username", "", time()-1, "/"); // 24 jam * 7 hari = 1 Minggu
-   // setcookie("nama", "", time()-1, "/"); // 24 jam * 7 hari = 1 Minggu
-
-
-   // Login
-   if(isset($_COOKIE['id'])){
-     $checkLogin = true;
-     $id_user = $_COOKIE['id'];
-   } else{
-     $checkLogin = false;
-   }
+$nama_toko = "";
+// Session
+if (isset($_GET['toko'])) {
+   $checkToko = true;
    
-   if (isset($_GET['toko'])) {
-      $checkToko = true;
-      
-      $id_toko = $_GET['toko'];
-      $_SESSION['id_toko'] = $id_toko;
+   $id_toko = $_GET['toko'];
+   $_SESSION['id_toko'] = $id_toko;
 
-      $query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
-      $data = mysqli_fetch_array($query);
+   $query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
+   $data = mysqli_fetch_array($query);
 
-      $id_toko = $data['id_toko'];
-      $nama_toko = $data['nama_toko'];
-      $nomor_hp = $data['nomor_hp'];
-      $alamat = $data['alamat'];
-      $nama_pemilik = $data['nama_pemilik'];
-      $gambar_toko = $data['gambar_toko'];
-      $link_instagram = $data['link_instagram'];
-      $hari_operasional = $data['hari_operasional'];
-      $jam_operasional = $data['jam_operasional'];
-      $tanggal = $data['tanggal'];
+   $id_toko = $data['id_toko'];
+   $nama_toko = $data['nama_toko'];
+   $nomor_hp = $data['nomor_hp'];
+   $alamat = $data['alamat'];
+   $nama_pemilik = $data['nama_pemilik'];
+   $gambar_toko = $data['gambar_toko'];
+   $link_instagram = $data['link_instagram'];
+   $hari_operasional = $data['hari_operasional'];
+   $jam_operasional = $data['jam_operasional'];
+   $tanggal = $data['tanggal'];
 
-      // $id_pemesanan = "100";
-      // $queryPemesanan = mysqli_query($koneksi, "SELECT * FROM `pesanan_produk` ORDER BY id_pemesanan ");
-      // $jumRow = mysqli_num_rows($queryPemesanan);
-      // $dataIdPemesanan1 = mysqli_fetch_array($queryPemesanan);
+   // $id_pemesanan = "100";
+   // $queryPemesanan = mysqli_query($koneksi, "SELECT * FROM `pesanan_produk` ORDER BY id_pemesanan ");
+   // $jumRow = mysqli_num_rows($queryPemesanan);
+   // $dataIdPemesanan1 = mysqli_fetch_array($queryPemesanan);
 
-      // if ($jumRow > 0) {
-      //    $queryCekIdPemesanan = mysqli_query($koneksi, "SELECT * FROM `pesanan_produk` WHERE id_user='$id_user' AND ket='0' ORDER BY id_pemesanan ");
-      //    $jumRow = mysqli_num_rows($queryCekIdPemesanan);
-      //    $dataIdPemesanan2 = mysqli_fetch_array($queryCekIdPemesanan);
+   // if ($jumRow > 0) {
+   //    $queryCekIdPemesanan = mysqli_query($koneksi, "SELECT * FROM `pesanan_produk` WHERE id_user='$id_user' AND ket='0' ORDER BY id_pemesanan ");
+   //    $jumRow = mysqli_num_rows($queryCekIdPemesanan);
+   //    $dataIdPemesanan2 = mysqli_fetch_array($queryCekIdPemesanan);
 
-      //    if ($jumRow > 0) {
-      //       $id_pemesanan = $dataIdPemesanan2['id_pemesanan'];  
-      //    } else{
-      //       $id_pemesanan = $dataIdPemesanan1['id_pemesanan']+1;  
-      //    }
-      // } else{
-      //    $id_pemesanan = "100";
-      // }
+   //    if ($jumRow > 0) {
+   //       $id_pemesanan = $dataIdPemesanan2['id_pemesanan'];  
+   //    } else{
+   //       $id_pemesanan = $dataIdPemesanan1['id_pemesanan']+1;  
+   //    }
+   // } else{
+   //    $id_pemesanan = "100";
+   // }
 
-   } else {
-      header("location:../toko/");
-   }
+} else {
+   header("location:../toko/");
+}
 
 
-   function rupiah($angka)
-   {
+function rupiah($angka)
+{
 
-      $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
-      return $hasil_rupiah;
-   }
+   $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
+   return $hasil_rupiah;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -139,26 +128,26 @@
       <div class="navbar container-fluid">
          <div class="container ">
             <!-- logo -->
-            <a class="nav-brand" href="../toko/detail-toko.php?toko=<?=$id_toko?>">
+            <a class="nav-brand" href="../toko/detail-toko.php?toko=<?= $id_toko ?>">
                <img src="../../img/logo.png" alt="" class="img-fluid">
             </a>
             <i class="fa fa-shopping-cart text-dark media"></i>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                <ul class="navbar-nav ml-auto">
                   <!-- menu item -->
-                  <?php 
-                     if(!$checkLogin){
+                  <?php
+                  if (!$checkLogin) {
                   ?>
-                     
+
                      <li class="nav-item">
                         <a class="nav-link" href="../">Beranda
                         </a>
                      </li>
                   <?php
-                     }
+                  }
                   ?>
                   <li class="nav-item active">
-                     <a class="nav-link" href="detail-toko.php?toko=<?=$id_toko?>"><?=$nama_toko?>
+                     <a class="nav-link" href="detail-toko.php?toko=<?= $id_toko ?>"><?= $nama_toko ?>
                      </a>
                   </li>
                   <!-- menu item -->
@@ -167,49 +156,52 @@
                      </a>
                   </li>
                   <!-- menu item -->
-                  
-                     <!-- <li class="nav-item" name="nav-pelayanan">
-                        <a class="nav-link" href="../penitipan/?toko=<?=$id_toko?>">Pelayanan
+
+                  <!-- <li class="nav-item" name="nav-pelayanan">
+                        <a class="nav-link" href="../penitipan/?toko=<?= $id_toko ?>">Pelayanan
                         </a>
                      </li> -->
 
-                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                           Pelayanan
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                           <li><a class="dropdown-item" href="../penitipan/?toko=<?=$id_toko?>">Penitipan</a></li>
-                           <li><a class="dropdown-item" href="../perawatan/?toko=<?=$id_toko?>">Perawatan</a></li>
-                           <li><a class="dropdown-item" href="../operasi/?toko=<?=$id_toko?>">Operasi</a></li>
-                           <li><a class="dropdown-item" href="../vaksin/?toko=<?=$id_toko?>">Vaksin</a></li>
-                        </ul>
-                     </li>
-                  
+                  <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Pelayanan
+                     </a>
+                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="../penitipan/?toko=<?= $id_toko ?>">Penitipan</a></li>
+                        <li><a class="dropdown-item" href="../perawatan/?toko=<?= $id_toko ?>">Perawatan</a></li>
+                        <li><a class="dropdown-item" href="../operasi/?toko=<?= $id_toko ?>">Operasi</a></li>
+                        <li><a class="dropdown-item" href="../vaksin/?toko=<?= $id_toko ?>">Vaksin</a></li>
+                     </ul>
+                  </li>
+
                   <!-- menu item -->
                   <li class="nav-item">
                      <a class="nav-link" href="../produk/">Produk
                      </a>
                   </li>
-                  <?php 
-                     if(!$checkLogin){
+                  <?php
+                  if (!$checkLogin) {
                   ?>
-                     
+
                      <li class="nav-item">
                         <a class="nav-link" href="../../login/">Login
                         </a>
                      </li>
                   <?php
-                     } else{
+                  } else {
                   ?>
                      <!-- menu item -->
                      <li class="nav-item">
                         <a class="nav-link" href="../profile/">Profil
+                           <span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              <?= $notifikasi ?>
+                           </span>
                         </a>
                      </li>
                   <?php
-                     }
+                  }
                   ?>
-                  
+
                </ul>
                <!--/ul -->
             </div>
@@ -297,8 +289,8 @@
                      <li>Alamat : <?= $alamat ?></li>
                      <li>Jam Operasional : <?= $hari_operasional ?> / <?= $jam_operasional ?> </li>
                      <li>No. Telepon : +<?= $nomor_hp ?></li>
-                     <!-- <li>Whatsapp : <a href="whatsapp://send?abid=<?=$nomor_hp?>&text=Maaf Mengganggu. Ingin Konsultasi">Send Message</a></li> -->
-                     <li>Whatsapp : <a href="https://api.whatsapp.com/send?phone=<?=$nomor_hp?>">Send Message</a></li>
+                     <!-- <li>Whatsapp : <a href="whatsapp://send?abid=<?= $nomor_hp ?>&text=Maaf Mengganggu. Ingin Konsultasi">Send Message</a></li> -->
+                     <li>Whatsapp : <a href="https://api.whatsapp.com/send?phone=<?= $nomor_hp ?>">Send Message</a></li>
                      <li><a target="_blank" href="<?= $link_instagram ?>">Instagram</a></li>
                   </ul>
                </div>
@@ -366,7 +358,7 @@
                                        <label><?= rupiah($harga) ?></label>
                                        <div class="form-group mb-3">
                                           <label for="jumlah">Masukkan Jumlah</label>
-                                          <input class="form-control" type="number" name="jumlah" id="jumlah" minlength="1" maxlength="3" min="1" max="<?=$stok?>" value="1" required>
+                                          <input class="form-control" type="number" name="jumlah" id="jumlah" minlength="1" maxlength="3" min="1" max="<?= $stok ?>" value="1" required>
                                           <!-- <input class="form-control" type="text" hidden name="id_pemesanan" id="id_pemesanan" value="<?= $id_pemesanan ?>"> -->
                                           <input class="form-control" type="text" hidden name="id_user" id="id_user" value="<?= $id_user ?>">
                                           <input class="form-control" type="text" hidden name="id_produk" id="id_produk" value="<?= $id_produk ?>">
@@ -377,16 +369,16 @@
                                     </div>
                                     <div class="modal-footer">
                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                       <?php 
-                                          if($checkLogin){
-                                             echo '
+                                       <?php
+                                       if ($checkLogin) {
+                                          echo '
                                                 <button type="submit" id="tambah_pesanan_produk" name="tambah_pesanan_produk" class="btn btn-primary">Pesan</button>
                                              ';
-                                          } else{
-                                             echo '
+                                       } else {
+                                          echo '
                                                 <a href="../../login/" class="btn btn-primary">Pesan</a>
                                              ';
-                                          }
+                                       }
                                        ?>
                                        <!-- <button type="submit" id="tambah_pesanan_produk" name="tambah_pesanan_produk" class="btn btn-primary">Pesan</button> -->
                                     </div>
@@ -464,9 +456,9 @@
                </div>
                <!-- /col-lg-12 -->
             </div>
-           <!-- <h4 class="mt-3">Lokasi Kami</h4>
+            <!-- <h4 class="mt-3">Lokasi Kami</h4>
             <div id="map-canvas" class="mt-5"></div> -->
-            <!-- custom link --> 
+            <!-- custom link -->
          </div>
          <!-- /page-with-sidebar -->
          <!-- ==== Sidebar ==== -->
@@ -474,10 +466,10 @@
             <div class="widget-area">
                <h5 class="sidebar-header">Layanan Kami</h5>
                <div class="list-group">
-                  <a href="../penitipan/?toko=<?=$id_toko?>" class="list-group-item list-group-item-action">Penitipan</a>
-                  <a href="../perawatan/?toko=<?=$id_toko?>" class="list-group-item list-group-item-action">Perawatan</a>
-                  <a href="../operasi/?toko=<?=$id_toko?>" class="list-group-item list-group-item-action">Operasi</a>
-                  <a href="../vaksin/?toko=<?=$id_toko?>" class="list-group-item list-group-item-action">Vaksin</a>
+                  <a href="../penitipan/?toko=<?= $id_toko ?>" class="list-group-item list-group-item-action">Penitipan</a>
+                  <a href="../perawatan/?toko=<?= $id_toko ?>" class="list-group-item list-group-item-action">Perawatan</a>
+                  <a href="../operasi/?toko=<?= $id_toko ?>" class="list-group-item list-group-item-action">Operasi</a>
+                  <a href="../vaksin/?toko=<?= $id_toko ?>" class="list-group-item list-group-item-action">Vaksin</a>
                   <!-- <a href="#" class="list-group-item list-group-item-action">Konsultasi</a>
                   <a href="#" class="list-group-item list-group-item-action">Makanan</a>
                   <a href="#" class="list-group-item list-group-item-action">Aksesoris</a> -->

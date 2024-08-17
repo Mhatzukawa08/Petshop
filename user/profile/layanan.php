@@ -5,19 +5,14 @@
 	$id_user = $_COOKIE['id'];
 	$nama_user = $_COOKIE['nama'];
  
-	$checkLogin = false;
 	$checkToko = false;
- 
+	
 	// Login
-	if(isset($_COOKIE['id'])){
-	   $checkLogin = true;
-	} else{
-	   $checkLogin = false;
-	}
- 
+	include '../notifikasi.php';
+	
 	$nama_toko = "";
 	// Session
-	if(isset($_SESSION['id_toko'])){
+	if (isset($_SESSION['id_toko'])) {
 		$checkToko = true;
 	
 		$id_toko = $_SESSION['id_toko'];
@@ -34,7 +29,7 @@
 		$hari_operasional = $data['hari_operasional'];
 		$jam_operasional = $data['jam_operasional'];
 		$tanggal = $data['tanggal'];
- 
+	
 	} else{
 	   $checkToko = false;
 	}
@@ -191,6 +186,9 @@
 							<!-- menu item -->
 							<li class="nav-item active">
 								<a class="nav-link" href="../profile/">Profil
+								<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									<?= $notifikasi ?>
+								</span>
 								</a>
 							</li>
 						</ul>
@@ -283,16 +281,34 @@
 								$tanggal = $dataToko['tanggal'];
 
 								// Dokumentasi Terakhir
+								$notifikasiPenitipan = 0;
 								$queryDokumentasi = mysqli_query($koneksi, "SELECT * FROM dokumentasi WHERE id_pilihan_pesanan='1' 
-									AND id_pesanan='$id_pesanan_penitipan' ORDER BY waktu DESC ");
-								$jumlahRow = mysqli_num_rows($queryDokumentasi);
-								$dataDokumentasi = mysqli_fetch_array($queryDokumentasi);
-
-								if($jumlahRow>0){
+									AND id_pesanan='$id_pesanan_penitipan' ORDER BY waktu ASC ");
+								
+								$keterangan = "";
+								$gambar = "";
+								$waktu = "";
+								$notifikasiPenitipan = 0;
+								while($dataDokumentasi = mysqli_fetch_assoc($queryDokumentasi)){
 									$keterangan = $dataDokumentasi['keterangan'];
 									$gambar = $dataDokumentasi['gambar'];
 									$waktu = $dataDokumentasi['waktu'];
+
+									if($dataDokumentasi['notification'] == "0"){
+										$notifikasiPenitipan++;
+									}
 								}
+								
+								// $queryDokumentasi = mysqli_query($koneksi, "SELECT * FROM dokumentasi WHERE id_pilihan_pesanan='1' 
+								// 	AND id_pesanan='$id_pesanan_penitipan' ORDER BY waktu DESC ");
+								// $jumlahRow = mysqli_num_rows($queryDokumentasi);
+								// $dataDokumentasi = mysqli_fetch_array($queryDokumentasi);
+
+								// if($jumlahRow>0){
+								// 	$keterangan = $dataDokumentasi['keterangan'];
+								// 	$gambar = $dataDokumentasi['gambar'];
+								// 	$waktu = $dataDokumentasi['waktu'];
+								// }
 
 								?>
 								<div class="col-lg-4 mt-4">
@@ -322,7 +338,17 @@
 															<i class="flaticon-pet-shelter text-dark h1"></i>
 														</td>
 														<td>
-															<label class="text-dark"><b><?=$jenis_pesanan?></b></label>
+															<label class="text-dark"><b><?=$jenis_pesanan?></b>
+																<?php 
+																	if($notifikasiPenitipan>0){
+																	?>
+																		<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+																			<?= $notifikasiPenitipan ?>
+																		</span>
+																	<?php
+																	}
+																?>
+															</label>
 														</td>
 													</tr>
 												</table>
@@ -496,29 +522,35 @@
 								}
 
 								// Dokumentasi Terakhir
+								$notifikasiPerawatan = 0;
 								$queryDokumentasi = mysqli_query($koneksi, "SELECT * FROM dokumentasi WHERE id_pilihan_pesanan='2' 
 									AND id_pesanan='$id_pesanan_perawatan' ORDER BY waktu DESC ");
-								$jumlahRow = mysqli_num_rows($queryDokumentasi);
-								$dataDokumentasi = mysqli_fetch_array($queryDokumentasi);
-
-								if($jumlahRow>0){
+								
+								$keterangan = "";
+								$gambar = "";
+								$waktu = "";
+								$notifikasiPerawatan = 0;
+								while($dataDokumentasi = mysqli_fetch_assoc($queryDokumentasi)){
 									$keterangan = $dataDokumentasi['keterangan'];
 									$gambar = $dataDokumentasi['gambar'];
 									$waktu = $dataDokumentasi['waktu'];
+
+									if($dataDokumentasi['notification'] == "0"){
+										$notifikasiPerawatan++;
+									}
 								}
+								
+								// $queryDokumentasi = mysqli_query($koneksi, "SELECT * FROM dokumentasi WHERE id_pilihan_pesanan='2' 
+								// 	AND id_pesanan='$id_pesanan_perawatan' ORDER BY waktu DESC ");
+								
+								// $jumlahRow = mysqli_num_rows($queryDokumentasi);
+								// $dataDokumentasi = mysqli_fetch_array($queryDokumentasi);
 
-								// $queryPerawatan = mysqli_query($koneksi, "SELECT * FROM perawatan WHERE id_perawatan='$id_perawatan' ");
-								// $dataPerawatan = mysqli_fetch_array($queryPerawatan);
-
-								// $nama_toko = $dataToko['nama_toko'];
-								// $nomor_hp = $dataToko['nomor_hp'];
-								// $alamat = $dataToko['alamat'];
-								// $nama_pemilik = $dataToko['nama_pemilik'];
-								// $gambar_toko = $dataToko['gambar_toko'];
-								// $link_instagram = $dataToko['link_instagram'];
-								// $hari_operasional = $dataToko['hari_operasional'];
-								// $jam_operasional = $dataToko['jam_operasional'];
-								// $tanggal = $dataToko['tanggal'];
+								// if($jumlahRow>0){
+								// 	$keterangan = $dataDokumentasi['keterangan'];
+								// 	$gambar = $dataDokumentasi['gambar'];
+								// 	$waktu = $dataDokumentasi['waktu'];
+								// }
 
 								?>
 								<div class="col-lg-4 mt-4">
@@ -548,7 +580,17 @@
 															<i class="flaticon-animals-2 text-dark h1"></i>
 														</td>
 														<td>
-															<label class="text-dark"><b><?=$jenis_pesanan?></b></label>
+															<label class="text-dark"><b><?=$jenis_pesanan?></b>
+																<?php 
+																	if($notifikasiPerawatan>0){
+																	?>
+																		<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+																			<?= $notifikasiPerawatan ?>
+																		</span>
+																	<?php
+																	}
+																?>
+															</label>
 														</td>
 													</tr>
 												</table>
@@ -689,17 +731,34 @@
 								$jenis_hewan = $dataJenisHewan['jenis_hewan'];
 
 								// Dokumentasi Terakhir
+								$notifikasiOperasi = 0;
 								$queryDokumentasi = mysqli_query($koneksi, "SELECT * FROM dokumentasi WHERE id_pilihan_pesanan='3' 
 									AND id_pesanan='$id_pesanan_operasi' ORDER BY waktu DESC ");
-								$jumlahRow = mysqli_num_rows($queryDokumentasi);
-								$dataDokumentasi = mysqli_fetch_array($queryDokumentasi);
-
-								if($jumlahRow>0){
+								
+								$keterangan = "";
+								$gambar = "";
+								$waktu = "";
+								$notifikasiOperasi = 0;
+								while($dataDokumentasi = mysqli_fetch_assoc($queryDokumentasi)){
 									$keterangan = $dataDokumentasi['keterangan'];
 									$gambar = $dataDokumentasi['gambar'];
 									$waktu = $dataDokumentasi['waktu'];
+
+									if($dataDokumentasi['notification'] == "0"){
+										$notifikasiOperasi++;
+									}
 								}
-	
+								
+								// $queryDokumentasi = mysqli_query($koneksi, "SELECT * FROM dokumentasi WHERE id_pilihan_pesanan='3' 
+								// 	AND id_pesanan='$id_pesanan_operasi' ORDER BY waktu DESC ");
+								// $jumlahRow = mysqli_num_rows($queryDokumentasi);
+								// $dataDokumentasi = mysqli_fetch_array($queryDokumentasi);
+
+								// if($jumlahRow>0){
+								// 	$keterangan = $dataDokumentasi['keterangan'];
+								// 	$gambar = $dataDokumentasi['gambar'];
+								// 	$waktu = $dataDokumentasi['waktu'];
+								// }
 
 								?>
 								<div class="col-lg-4 mt-4">
@@ -729,7 +788,17 @@
 															<i class="flaticon-dog-with-first-aid-kit-bag text-dark h1"></i>
 														</td>
 														<td>
-															<label class="text-dark"><b><?=$jenis_pesanan?></b></label>
+															<label class="text-dark"><b><?=$jenis_pesanan?></b>
+																<?php 
+																	if($notifikasiOperasi>0){
+																	?>
+																		<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+																			<?= $notifikasiOperasi ?>
+																		</span>
+																	<?php
+																	}
+																?>
+															</label>
 														</td>
 													</tr>
 												</table>
@@ -885,16 +954,34 @@
 								$jenis_hewan = $dataJenisHewan['jenis_hewan'];
 
 								// Dokumentasi Terakhir
+								$notifikasiVaksin = 0;
 								$queryDokumentasi = mysqli_query($koneksi, "SELECT * FROM dokumentasi WHERE id_pilihan_pesanan='4' 
 									AND id_pesanan='$id_pesanan_vaksin' ORDER BY waktu DESC ");
-								$jumlahRow = mysqli_num_rows($queryDokumentasi);
-								$dataDokumentasi = mysqli_fetch_array($queryDokumentasi);
-
-								if($jumlahRow>0){
+								
+								$keterangan = "";
+								$gambar = "";
+								$waktu = "";
+								$notifikasiVaksin = 0;
+								while($dataDokumentasi = mysqli_fetch_assoc($queryDokumentasi)){
 									$keterangan = $dataDokumentasi['keterangan'];
 									$gambar = $dataDokumentasi['gambar'];
 									$waktu = $dataDokumentasi['waktu'];
+
+									if($dataDokumentasi['notification'] == "0"){
+										$notifikasiVaksin++;
+									}
 								}
+
+								// $queryDokumentasi = mysqli_query($koneksi, "SELECT * FROM dokumentasi WHERE id_pilihan_pesanan='4' 
+								// 	AND id_pesanan='$id_pesanan_vaksin' ORDER BY waktu DESC ");
+								// $jumlahRow = mysqli_num_rows($queryDokumentasi);
+								// $dataDokumentasi = mysqli_fetch_array($queryDokumentasi);
+
+								// if($jumlahRow>0){
+								// 	$keterangan = $dataDokumentasi['keterangan'];
+								// 	$gambar = $dataDokumentasi['gambar'];
+								// 	$waktu = $dataDokumentasi['waktu'];
+								// }
 
 								?>
 								<div class="col-lg-4 mt-4">
@@ -924,7 +1011,17 @@
 															<i class="flaticon-syringe text-dark h1"></i>
 														</td>
 														<td>
-															<label class="text-dark"><b><?=$jenis_pesanan?></b></label>
+															<label class="text-dark"><b><?=$jenis_pesanan?></b>
+																<?php 
+																	if($notifikasiVaksin>0){
+																	?>
+																		<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+																			<?= $notifikasiVaksin ?>
+																		</span>
+																	<?php
+																	}
+																?>
+															</label>
 														</td>
 													</tr>
 												</table>

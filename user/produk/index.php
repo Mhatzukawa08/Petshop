@@ -1,60 +1,43 @@
 <?php
-   require_once '../../koneksi.php';
-   session_start();
+require_once '../../koneksi.php';
+session_start();
 
+$checkLogin = false;
+$checkToko = false;
 
-   $checkLogin = false;
-   $checkToko = false;
+// Login
+include '../notifikasi.php';
 
-   // setcookie("coba_data", "coba_data", time() + (86400 * 30), "/"); // // 24 jam * 7 hari = 1 Minggu
+$nama_toko = "";
+// Session
+if (isset($_SESSION['id_toko'])) {
+   $checkToko = true;
 
-   // setcookie("sebagai", "", time()-1, "/"); // 24 jam * 7 hari = 1 Minggu
-   // setcookie("id", "", time()-1, "/"); // 24 jam * 7 hari = 1 Minggu
-   // setcookie("username", "", time()-1, "/"); // 24 jam * 7 hari = 1 Minggu
-   // setcookie("nama", "", time()-1, "/"); // 24 jam * 7 hari = 1 Minggu
+   $id_toko = $_SESSION['id_toko'];
+   $query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
+   $data = mysqli_fetch_array($query);
 
+   $id_toko = $data['id_toko'];
+   $nama_toko = $data['nama_toko'];
+   $nomor_hp = $data['nomor_hp'];
+   $alamat = $data['alamat'];
+   $nama_pemilik = $data['nama_pemilik'];
+   $gambar_toko = $data['gambar_toko'];
+   $link_instagram = $data['link_instagram'];
+   $hari_operasional = $data['hari_operasional'];
+   $jam_operasional = $data['jam_operasional'];
+   $tanggal = $data['tanggal'];
 
-   // Login
-   if(isset($_COOKIE['id'])){
-      $id_user = $_COOKIE['id'];
-      $checkLogin = true;
-   } else{
-     $checkLogin = false;
-   }
+} else {
+   header("location:../toko/");
+}
 
-   // session_start();
-   // session_destroy();
+function rupiah($angka)
+{
 
-   $id_toko = "";
-
-   if(isset($_SESSION['id_toko'])){
-      $id_toko = $_SESSION['id_toko'];
-
-      $checkToko = true;
-      
-      $query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
-      $data = mysqli_fetch_array($query);
-
-      $id_toko = $data['id_toko'];
-      $nama_toko = $data['nama_toko'];
-      $nomor_hp = $data['nomor_hp'];
-      $alamat = $data['alamat'];
-      $nama_pemilik = $data['nama_pemilik'];
-      $gambar_toko = $data['gambar_toko'];
-      $link_instagram = $data['link_instagram'];
-      $hari_operasional = $data['hari_operasional'];
-      $jam_operasional = $data['jam_operasional'];
-      $tanggal = $data['tanggal'];
-   } else{
-      header("location:../toko/");
-   }
-
-   function rupiah($angka)
-   {
-
-      $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
-      return $hasil_rupiah;
-   }
+   $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
+   return $hasil_rupiah;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -141,30 +124,30 @@
       <div class="navbar container-fluid">
          <div class="container ">
             <!-- logo -->
-            <a class="nav-brand" href="../toko/detail-toko.php?toko=<?=$id_toko?>">
+            <a class="nav-brand" href="../toko/detail-toko.php?toko=<?= $id_toko ?>">
                <img src="../../img/logo.png" alt="" class="img-fluid">
             </a>
             <i class="fa fa-shopping-cart text-dark media"></i>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                <ul class="navbar-nav ml-auto">
                   <!-- menu item -->
-                  <?php 
-                     if(!$checkLogin){
+                  <?php
+                  if (!$checkLogin) {
 
                   ?>
-                     
+
                      <li class="nav-item">
                         <a class="nav-link" href="../">Beranda
                         </a>
                      </li>
                   <?php
-                     }
+                  }
                   ?>
                   <li class="nav-item">
-                     <a class="nav-link" href="../toko/detail-toko.php?toko=<?=$id_toko?>"><?=$nama_toko?>
+                     <a class="nav-link" href="../toko/detail-toko.php?toko=<?= $id_toko ?>"><?= $nama_toko ?>
                      </a>
                   </li>
-               
+
                   <!-- menu item -->
                   <li class="nav-item">
                      <a class="nav-link" href="../toko/">Toko
@@ -176,10 +159,10 @@
                         Pelayanan
                      </a>
                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="../penitipan/?toko=<?=$id_toko?>">Penitipan</a></li>
-                        <li><a class="dropdown-item" href="../perawatan/?toko=<?=$id_toko?>">Perawatan</a></li>
-                        <li><a class="dropdown-item" href="../operasi/?toko=<?=$id_toko?>">Operasi</a></li>
-                        <li><a class="dropdown-item" href="../vaksin/?toko=<?=$id_toko?>">Vaksin</a></li>
+                        <li><a class="dropdown-item" href="../penitipan/?toko=<?= $id_toko ?>">Penitipan</a></li>
+                        <li><a class="dropdown-item" href="../perawatan/?toko=<?= $id_toko ?>">Perawatan</a></li>
+                        <li><a class="dropdown-item" href="../operasi/?toko=<?= $id_toko ?>">Operasi</a></li>
+                        <li><a class="dropdown-item" href="../vaksin/?toko=<?= $id_toko ?>">Vaksin</a></li>
                      </ul>
                   </li>
                   <!-- menu item -->
@@ -188,24 +171,27 @@
                      </a>
                   </li>
                   <!-- menu item -->
-                  <?php 
-                     if(!$checkLogin){
+                  <?php
+                  if (!$checkLogin) {
                   ?>
-                     
+
                      <li class="nav-item">
                         <a class="nav-link" href="../../login/">Login
                         </a>
                      </li>
                   <?php
-                     } else{
+                  } else {
                   ?>
                      <!-- menu item -->
                      <li class="nav-item">
                         <a class="nav-link" href="../profile/">Profil
+                        <span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              <?= $notifikasi ?>
+                           </span>
                         </a>
                      </li>
                   <?php
-                     }
+                  }
                   ?>
                </ul>
                <!--/ul -->
@@ -335,7 +321,7 @@
                               <label><?= rupiah($harga) ?></label>
                               <div class="form-group mb-3">
                                  <label for="jumlah">Masukkan Jumlah</label>
-                                 <input class="form-control" type="number" name="jumlah" id="jumlah" minlength="1" maxlength="3" min="1" max="<?=$stok?>" value="1" required>
+                                 <input class="form-control" type="number" name="jumlah" id="jumlah" minlength="1" maxlength="3" min="1" max="<?= $stok ?>" value="1" required>
                                  <!-- <input class="form-control" type="text" hidden name="id_pemesanan" id="id_pemesanan" value="<?= $id_pemesanan ?>"> -->
                                  <input class="form-control" type="text" hidden name="id_user" id="id_user" value="<?= $id_user ?>">
                                  <input class="form-control" type="text" hidden name="id_produk" id="id_produk" value="<?= $id_produk ?>">
@@ -346,16 +332,16 @@
                            </div>
                            <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                              <?php 
-                                 if($checkLogin){
-                                    echo '
+                              <?php
+                              if ($checkLogin) {
+                                 echo '
                                        <button type="submit" id="tambah_pesanan_produk" name="tambah_pesanan_produk" class="btn btn-primary">Pesan</button>
                                     ';
-                                 } else{
-                                    echo '
+                              } else {
+                                 echo '
                                        <a href="../../login/" class="btn btn-primary">Pesan</a>
                                     ';
-                                 }
+                              }
                               ?>
                            </div>
                         </form>
@@ -376,7 +362,7 @@
    <!-- ==== footer ==== -->
    <footer class="bg-light pattern1 m-bottom">
       <div class="container">
-        
+
          <!--/col-lg-12-->
       </div>
       <!--/ container -->

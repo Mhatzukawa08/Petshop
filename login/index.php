@@ -54,28 +54,13 @@
                   </div>
                   <form class="user" method="POST" action="proses-login.php">
                     <div class="form-group">
-                      <input type="text" name="user" class="form-control form-control-user" autofocus="" placeholder="Username">
+                      <label for="">Masukkan ID Pelanggan</label>
+                      <input type="text" name="id_pelanggan" class="form-control form-control-user" autofocus="" placeholder="ex: 12345ABCD">
                     </div>
-                    <div class="form-group">
-                      <input type="password" name="pass" class="form-control form-control-user" placeholder="Password">
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="check_karyawan_dokter" value="karyawan_dokter" name="check_karyawan_dokter">
-                      <label class="form-check-label" for="check_karyawan_dokter">
-                        Login Sebagai Karyawan/dokter
-                      </label>
-                    </div>
+                    <p>Login Sebagai <a href="../login-karyawan-dokter/">Karyawan/dokter</a></p>
                     <p>Belum Punya Akun? <a href="../registrasi/">Daftar</a></p>
                     <input type="submit" class="btn btn-info btn-user btn-block" value="Login" name="login">
                   </form>
-                  <div class="text-center">
-                    Masukkan Username dan Password dengan benar. <br>
-                  </div>
-                  <a href="index.php" style="text-decoration: none;">
-                    <div class="text-center">
-                      <!-- Ingin menemukan obat yang kalian cari?. <br> -->
-                    </div>
-                  </a>
                 </div>
               </div>
             </div>

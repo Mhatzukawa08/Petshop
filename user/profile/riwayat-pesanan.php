@@ -9,11 +9,7 @@
 	$checkToko = false;
  
 	// Login
-	if(isset($_COOKIE['id'])){
-	   $checkLogin = true;
-	} else{
-	   $checkLogin = false;
-	}
+	include '../notifikasi.php';
  
 	$nama_toko = "";
 	// Session
@@ -194,6 +190,9 @@
 						<!-- menu item -->
 						<li class="nav-item active">
 							<a class="nav-link" href="../profile/">Profil
+								<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									<?= $notifikasi ?>
+								</span>
 							</a>
 						</li>
   					</ul>

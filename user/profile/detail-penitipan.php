@@ -41,19 +41,16 @@ if (isset($_GET)) {
 	$hari_operasional = $dataToko['hari_operasional'];
 	$jam_operasional = $dataToko['jam_operasional'];
 	$tanggal = $dataToko['tanggal'];
+
+	// Update sudah baca notifikasi
+	$queryCekDokumentasi = mysqli_query($koneksi, "UPDATE dokumentasi SET notification='1' WHERE id_pilihan_pesanan='1' AND id_pesanan='$id_pesanan' AND notification='0' ");
+
 }
 
 session_start();
 
 $checkLogin = false;
 $checkToko = false;
-
-// Login
-if (isset($_COOKIE['id'])) {
-	$checkLogin = true;
-} else {
-	$checkLogin = false;
-}
 
 $nama_toko_session = "";
 // Session
@@ -68,6 +65,10 @@ if (isset($_SESSION['id_toko'])) {
 } else {
 	$checkToko = false;
 }
+
+
+// Login
+include '../notifikasi.php';
 ?>
 
 <!DOCTYPE html>

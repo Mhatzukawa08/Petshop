@@ -9,17 +9,13 @@ $checkLogin = false;
 $checkToko = false;
 
 // Login
-if(isset($_COOKIE['id'])){
-	$checkLogin = true;
-} else{
-	$checkLogin = false;
-    header("location:../../login/");
-}
+include '../notifikasi.php';
 
+$nama_toko = "";
+// Session
 if (isset($_SESSION['id_toko'])) {
 	$checkToko = true;
-	
-	
+
 	$id_toko = $_SESSION['id_toko'];
 	$query = mysqli_query($koneksi, "SELECT * FROM `toko` WHERE id_toko='$id_toko' ");
 	$data = mysqli_fetch_array($query);
@@ -34,7 +30,8 @@ if (isset($_SESSION['id_toko'])) {
 	$hari_operasional = $data['hari_operasional'];
 	$jam_operasional = $data['jam_operasional'];
 	$tanggal = $data['tanggal'];
-} else{
+
+} else {
 	header("location:../toko/");
 }
 
@@ -131,7 +128,7 @@ if (isset($_SESSION['id_toko'])) {
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item">
-							<a class="nav-link" href="../toko/detail-toko.php?toko=<?=$id_toko?>"><?=$nama_toko?>
+							<a class="nav-link" href="../toko/detail-toko.php?toko=<?= $id_toko ?>"><?= $nama_toko ?>
 							</a>
 						</li>
 						<!-- menu item -->
@@ -140,18 +137,18 @@ if (isset($_SESSION['id_toko'])) {
 							</a>
 						</li>
 						<!-- menu item -->
-						<?php 
-							if($checkLogin){
+						<?php
+						if ($checkLogin) {
 
 						?>
 							<!-- <li class="nav-item" name="nav-pelayanan">
-								<a class="nav-link" href="../penitipan/?toko=<?=$id_toko?>">Pelayanan
+								<a class="nav-link" href="../penitipan/?toko=<?= $id_toko ?>">Pelayanan
 								</a>
 							</li> -->
 
 							<li class="nav-item dropdown active">
 								<a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Pelayanan
+									Pelayanan
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<li><a class="dropdown-item active" href="../penitipan/">Penitipan</a></li>
@@ -161,24 +158,27 @@ if (isset($_SESSION['id_toko'])) {
 								</ul>
 							</li>
 						<?php
-							} else{
-							?>
-								<li class="nav-item" name="nav-pelayanan">
+						} else {
+						?>
+							<li class="nav-item" name="nav-pelayanan">
 								<a class="nav-link" href="../../login/">Pelayanan
 								</a>
-								</li>
-							<?php
-							}
+							</li>
+						<?php
+						}
 						?>
-							<li class="nav-item">
-								<a class="nav-link" href="../produk/">Produk
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="../profile/">Profil
-								</a>
-							</li>
-						</ul>
+						<li class="nav-item">
+							<a class="nav-link" href="../produk/">Produk
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="../profile/">Profil
+								<span style="color: white;" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									<?= $notifikasi ?>
+								</span>
+							</a>
+						</li>
+					</ul>
 					<!--/ul -->
 				</div>
 				<!--collapse -->
@@ -254,10 +254,10 @@ if (isset($_SESSION['id_toko'])) {
 					<div class="widget-area">
 						<h5 class="sidebar-header">Layanan Kami</h5>
 						<div class="list-group">
-							<a href="../penitipan/?toko=<?=$id_toko?>" class="list-group-item list-group-item-action active">Penitipan</a>
-							<a href="../perawatan/?toko=<?=$id_toko?>" class="list-group-item list-group-item-action">Perawatan</a>
-							<a href="../operasi/?toko=<?=$id_toko?>" class="list-group-item list-group-item-action">Operasi</a>
-							<a href="../vaksin/?toko=<?=$id_toko?>" class="list-group-item list-group-item-action">Vaksin</a>
+							<a href="../penitipan/?toko=<?= $id_toko ?>" class="list-group-item list-group-item-action active">Penitipan</a>
+							<a href="../perawatan/?toko=<?= $id_toko ?>" class="list-group-item list-group-item-action">Perawatan</a>
+							<a href="../operasi/?toko=<?= $id_toko ?>" class="list-group-item list-group-item-action">Operasi</a>
+							<a href="../vaksin/?toko=<?= $id_toko ?>" class="list-group-item list-group-item-action">Vaksin</a>
 						</div>
 						<!-- /list-group -->
 					</div>
@@ -268,8 +268,8 @@ if (isset($_SESSION['id_toko'])) {
 					<h2>Input Data Dengan Benar</h2>
 					<!-- Image -->
 					<form action="penitipan-post.php" method="post">
-						<input type="text" class="form-control" name="id_user" id="id_user" value="<?=$id_user?>" hidden>
-						<input type="text" class="form-control" name="id_toko" id="id_toko" value="<?=$id_toko?>" hidden>
+						<input type="text" class="form-control" name="id_user" id="id_user" value="<?= $id_user ?>" hidden>
+						<input type="text" class="form-control" name="id_toko" id="id_toko" value="<?= $id_toko ?>" hidden>
 
 						<div class="form-group">
 							<label for="exampleFormControlInput1">Nama Toko</label>
@@ -296,7 +296,7 @@ if (isset($_SESSION['id_toko'])) {
 									$data = mysqli_fetch_array($queryJenisHewan);
 									$jenis_hewan = $data['jenis_hewan'];
 								?>
-									<option value="<?= $jenis_hewan.";;".$harga.";;".$harga_makanan?>"><?= $jenis_hewan ?></option>
+									<option value="<?= $jenis_hewan . ";;" . $harga . ";;" . $harga_makanan ?>"><?= $jenis_hewan ?></option>
 
 								<?php } ?>
 							</select>
@@ -308,7 +308,7 @@ if (isset($_SESSION['id_toko'])) {
 						</div>
 						<div class="form-group">
 							<label for="jumlah_hari">Jumlah Hari</label>
-							<input type="number" name="jumlah_hari" class="form-control" id="jumlah_hari" placeholder="Jumlah hari"minlength="1" maxlength="3" min="1" value="1" required>
+							<input type="number" name="jumlah_hari" class="form-control" id="jumlah_hari" placeholder="Jumlah hari" minlength="1" maxlength="3" min="1" value="1" required>
 						</div>
 						<div class="form-group">
 							<label for="makanan">Makanan</label>
@@ -339,7 +339,7 @@ if (isset($_SESSION['id_toko'])) {
 				</div>
 				<!-- /col-lg-9 -->
 				<!-- ==== Sidebar ==== -->
-				
+
 				<!-- /sidebar -->
 			</div>
 			<!-- /row-->

@@ -7,78 +7,79 @@ $nama_user = $_COOKIE['nama'];
 $id_pesanan = "";
 if (isset($_GET)) {
 	$id_pesanan = $_GET['id_pesanan'];
+
+	$queryPenitipan = mysqli_query($koneksi, "SELECT * FROM pesanan_vaksin WHERE id_pesanan_vaksin='$id_pesanan' ");
+	$dataPenitipan = mysqli_fetch_array($queryPenitipan);
+
+	$id_pesanan_vaksin = $dataPenitipan['id_pesanan_vaksin'];
+	$kode_unik = $dataPenitipan['kode_unik'];
+	$id_toko = $dataPenitipan['id_toko'];
+	$id_user = $dataPenitipan['id_user'];
+	$nama_hewan = $dataPenitipan['nama_hewan'];
+	$id_vaksin = $dataPenitipan['id_vaksin'];
+	$vaksin_ke = $dataPenitipan['vaksin_ke'];
+	$metode_pembayaran = $dataPenitipan['metode_pembayaran'];
+	if ($metode_pembayaran == "bayar_online") {
+		$metode_pembayaran = "Bayar Online";
+	} else if ($metode_pembayaran == "bayar_ditempat") {
+		$metode_pembayaran = "Bayar Ditempat";
+	}
+	$pesan = $dataPenitipan['pesan'];
+	$ket = $dataPenitipan['ket'];
+	$waktu = $dataPenitipan['waktu'];
+
+	// Toko
+	$queryToko = mysqli_query($koneksi, "SELECT * FROM toko WHERE id_toko='$id_toko' ");
+	$dataToko = mysqli_fetch_array($queryToko);
+
+	$nama_toko = $dataToko['nama_toko'];
+	$nomor_hp = $dataToko['nomor_hp'];
+	$alamat = $dataToko['alamat'];
+	$nama_pemilik = $dataToko['nama_pemilik'];
+	$gambar_toko = $dataToko['gambar_toko'];
+	$link_instagram = $dataToko['link_instagram'];
+	$hari_operasional = $dataToko['hari_operasional'];
+	$jam_operasional = $dataToko['jam_operasional'];
+	$tanggal = $dataToko['tanggal'];
+
+	// Vaksin
+	$queryOperasi = mysqli_query($koneksi, "SELECT * FROM vaksin WHERE id_vaksin='$id_vaksin' ");
+	$dataOperasi = mysqli_fetch_array($queryOperasi);
+	$id_jenis_hewan = $dataOperasi['jenis_hewan'];
+	$vaksin_1 = $dataOperasi['vaksin_1'];
+	$vaksin_2 = $dataOperasi['vaksin_2'];
+	$vaksin_3 = $dataOperasi['vaksin_3'];
+	$harga = 0;
+	if ($vaksin_ke == "1") {
+		$harga = $vaksin_1;
+	} else if ($vaksin_ke == "2") {
+		$harga = $vaksin_2;
+	} else if ($vaksin_ke == "3") {
+		$harga = $vaksin_3;
+	}
+
+	// Operasi
+	$queryJenisHewan = mysqli_query($koneksi, "SELECT * FROM jenis_hewan WHERE id_jenis_hewan='$id_jenis_hewan' ");
+	$dataJenisHewan = mysqli_fetch_array($queryJenisHewan);
+	$jenis_hewan = $dataJenisHewan['jenis_hewan'];
+
+	// Update sudah baca notifikasi
+	$queryCekDokumentasi = mysqli_query($koneksi, "UPDATE dokumentasi SET notification='1' WHERE id_pilihan_pesanan='4' AND id_pesanan='$id_pesanan' AND notification='0' ");
+
 }
-
-$queryPenitipan = mysqli_query($koneksi, "SELECT * FROM pesanan_vaksin WHERE id_pesanan_vaksin='$id_pesanan' ");
-$dataPenitipan = mysqli_fetch_array($queryPenitipan);
-
-$id_pesanan_vaksin = $dataPenitipan['id_pesanan_vaksin'];
-$kode_unik = $dataPenitipan['kode_unik'];
-$id_toko = $dataPenitipan['id_toko'];
-$id_user = $dataPenitipan['id_user'];
-$nama_hewan = $dataPenitipan['nama_hewan'];
-$id_vaksin = $dataPenitipan['id_vaksin'];
-$vaksin_ke = $dataPenitipan['vaksin_ke'];
-$metode_pembayaran = $dataPenitipan['metode_pembayaran'];
-if($metode_pembayaran=="bayar_online"){
-	$metode_pembayaran = "Bayar Online";
-} else if($metode_pembayaran=="bayar_ditempat"){
-	$metode_pembayaran = "Bayar Ditempat";
-}
-$pesan = $dataPenitipan['pesan'];
-$ket = $dataPenitipan['ket'];
-$waktu = $dataPenitipan['waktu'];
-
-// Toko
-$queryToko = mysqli_query($koneksi, "SELECT * FROM toko WHERE id_toko='$id_toko' ");
-$dataToko = mysqli_fetch_array($queryToko);
-
-$nama_toko = $dataToko['nama_toko'];
-$nomor_hp = $dataToko['nomor_hp'];
-$alamat = $dataToko['alamat'];
-$nama_pemilik = $dataToko['nama_pemilik'];
-$gambar_toko = $dataToko['gambar_toko'];
-$link_instagram = $dataToko['link_instagram'];
-$hari_operasional = $dataToko['hari_operasional'];
-$jam_operasional = $dataToko['jam_operasional'];
-$tanggal = $dataToko['tanggal'];
-
-// Vaksin
-$queryOperasi = mysqli_query($koneksi, "SELECT * FROM vaksin WHERE id_vaksin='$id_vaksin' ");
-$dataOperasi = mysqli_fetch_array($queryOperasi);
-$id_jenis_hewan = $dataOperasi['jenis_hewan'];
-$vaksin_1 = $dataOperasi['vaksin_1'];
-$vaksin_2 = $dataOperasi['vaksin_2'];
-$vaksin_3 = $dataOperasi['vaksin_3'];
-$harga = 0;
-if($vaksin_ke=="1"){
-	$harga = $vaksin_1;
-} else if($vaksin_ke=="2"){
-	$harga = $vaksin_2;
-} else if($vaksin_ke=="3"){
-	$harga = $vaksin_3;
-}
-
-// Operasi
-$queryJenisHewan = mysqli_query($koneksi, "SELECT * FROM jenis_hewan WHERE id_jenis_hewan='$id_jenis_hewan' ");
-$dataJenisHewan = mysqli_fetch_array($queryJenisHewan);
-$jenis_hewan = $dataJenisHewan['jenis_hewan'];
 
 session_start();
- 
+
 $checkLogin = false;
 $checkToko = false;
 
+
 // Login
-if(isset($_COOKIE['id'])){
-$checkLogin = true;
-} else{
-$checkLogin = false;
-}
+include '../notifikasi.php';
 
 $nama_toko_session = "";
 // Session
-if(isset($_SESSION['id_toko'])){
+if (isset($_SESSION['id_toko'])) {
 	$checkToko = true;
 
 	$id_toko_session = $_SESSION['id_toko'];
@@ -86,8 +87,8 @@ if(isset($_SESSION['id_toko'])){
 	$data = mysqli_fetch_array($query);
 
 	$nama_toko_session = $data['nama_toko'];
-} else{
-$checkToko = false;
+} else {
+	$checkToko = false;
 }
 ?>
 
@@ -180,25 +181,25 @@ $checkToko = false;
 				<i class="fa fa-shopping-cart text-dark media"></i>
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ml-auto">
-						<?php 
-							if(!$checkLogin){
+						<?php
+						if (!$checkLogin) {
 						?>
 							<li class="nav-item">
-							<a class="nav-link" href="../">Beranda
-							</a>
+								<a class="nav-link" href="../">Beranda
+								</a>
 							</li>
 						<?php
-							}
+						}
 						?>
-						<?php 
-							if($checkToko){
+						<?php
+						if ($checkToko) {
 						?>
 							<li class="nav-item">
-								<a class="nav-link" href="../toko/detail-toko.php?toko=<?=$id_toko?>"><?=$nama_toko_session?>
-							</a>
+								<a class="nav-link" href="../toko/detail-toko.php?toko=<?= $id_toko ?>"><?= $nama_toko_session ?>
+								</a>
 							</li>
 						<?php
-							}
+						}
 						?>
 						<!-- menu item -->
 						<li class="nav-item">
@@ -206,31 +207,31 @@ $checkToko = false;
 							</a>
 						</li>
 						<!-- menu item -->
-						<?php 
-							if($checkLogin){
+						<?php
+						if ($checkLogin) {
 
 						?>
 
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Pelayanan
-							</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="../penitipan/">Penitipan</a></li>
-								<li><a class="dropdown-item" href="../perawatan/">Perawatan</a></li>
-								<li><a class="dropdown-item" href="../operasi/">Operasi</a></li>
-								<li><a class="dropdown-item" href="../vaksin/">Vaksin</a></li>
-							</ul>
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Pelayanan
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li><a class="dropdown-item" href="../penitipan/">Penitipan</a></li>
+									<li><a class="dropdown-item" href="../perawatan/">Perawatan</a></li>
+									<li><a class="dropdown-item" href="../operasi/">Operasi</a></li>
+									<li><a class="dropdown-item" href="../vaksin/">Vaksin</a></li>
+								</ul>
 							</li>
 						<?php
-							} else{
-							?>
+						} else {
+						?>
 							<li class="nav-item" name="nav-pelayanan">
 								<a class="nav-link" href="../../login/">Pelayanan
 								</a>
 							</li>
-							<?php
-							}
+						<?php
+						}
 						?>
 						<!-- menu item -->
 						<li class="nav-item">
@@ -304,7 +305,7 @@ $checkToko = false;
 												<img src="../../img/logo.png" width="70" class="ml-2">
 											</td>
 											<td>
-												<a href="../toko/detail-toko.php?toko=<?=$id_toko?>" class="text-dark"><b><?= $nama_toko ?></b></a>
+												<a href="../toko/detail-toko.php?toko=<?= $id_toko ?>" class="text-dark"><b><?= $nama_toko ?></b></a>
 											</td>
 											<td align="right">
 												<label class="text-danger mr-2"><b></b></label>
@@ -460,7 +461,7 @@ $checkToko = false;
 										<table border="0" width="100%" class="bg-light">
 											<tr>
 												<td width="100">
-													<label class="text-dark ml-2"><?=$waktu?></label>
+													<label class="text-dark ml-2"><?= $waktu ?></label>
 												</td>
 												<td>
 													<label class="text-success"><?= $keterangan ?> <br> <b class="text-primary">
@@ -537,7 +538,7 @@ $checkToko = false;
 
 	<footer class="bg-light pattern1 m-bottom no-img">
 		<div class="container">
-			
+
 			<!--/col-lg-12-->
 		</div>
 		<!--/ container -->
